@@ -164,22 +164,50 @@ pub struct MeasuredLetter {
 
     // how far the letter moves the pen
     pub advance: f32,
+
+    pub offset_x: f32,
 }
 
-pub fn measure_letter(font: FontRef<'static>, letter: char, size: f32) -> MeasuredLetter {
+pub fn measure_letter(
+    font: FontRef<'static>,
+    letter: char,
+    size: f32,
+    tabular_numerics: bool,
+) -> MeasuredLetter {
     let (font, id) = with_letter(font, letter);
 
     let units_per_em = font.metrics(coords(font)).units_per_em;
 
     let units = size / f32::from(units_per_em);
 
-    let advance = font.glyph_metrics(coords(font)).advance_width(id);
+    let glyph_metrics = font.glyph_metrics(coords(font));
+    let original_advance = glyph_metrics.advance_width(id);
+
+    let tabular = tabular_numerics && letter.is_ascii_digit();
+    let advance = if tabular {
+        (0..=9)
+            .map(|digit| {
+                let digit_id = font.charmap().map(char::from(b'0' + digit));
+                glyph_metrics.advance_width(digit_id)
+            })
+            .reduce(f32::max)
+            .unwrap_or(original_advance)
+    } else {
+        original_advance
+    };
+
+    let offset_x = if tabular {
+        (advance - original_advance) * units / 2.0
+    } else {
+        0.0
+    };
 
     MeasuredLetter {
         font,
         id,
         units,
         advance: advance * units,
+        offset_x,
     }
 }
 

@@ -11,11 +11,11 @@ pub struct Rules {
     pub max_lines: Option<usize>,
 }
 
-pub fn measure(content: &str, font: FontRef<'static>, size: f32) -> f32 {
+pub fn measure(content: &str, font: FontRef<'static>, size: f32, tabular_numerics: bool) -> f32 {
     let mut total = 0.0;
 
     for letter in content.chars() {
-        total += font::measure_letter(font, letter, size).advance;
+        total += font::measure_letter(font, letter, size, tabular_numerics).advance;
     }
 
     total
@@ -47,9 +47,16 @@ pub fn stack_height(font: FontRef<'static>, size: f32, count: usize) -> f32 {
     above_last + height(font, size)
 }
 
-pub fn arrange(content: &str, font: FontRef<'static>, size: f32, width: f32, rules: Rules) -> Vec<String> {
+pub fn arrange(
+    content: &str,
+    font: FontRef<'static>,
+    size: f32,
+    width: f32,
+    rules: Rules,
+    tabular_numerics: bool,
+) -> Vec<String> {
     let mut lines = match rules.wrap {
-        true => wrap(content, font, size, width),
+        true => wrap(content, font, size, width, tabular_numerics),
         false => vec![String::from(content)],
     };
 
@@ -68,15 +75,21 @@ pub fn arrange(content: &str, font: FontRef<'static>, size: f32, width: f32, rul
     };
 
     // a line that was cut off also gets the "…", even if it fits
-    if cut || measure(last, font, size) > width {
-        *last = elide(last, font, size, width);
+    if cut || measure(last, font, size, tabular_numerics) > width {
+        *last = elide(last, font, size, width, tabular_numerics);
     }
 
     lines
 }
 
 // fills each line with whole words until the next one would not fit
-fn wrap(content: &str, font: FontRef<'static>, size: f32, width: f32) -> Vec<String> {
+fn wrap(
+    content: &str,
+    font: FontRef<'static>,
+    size: f32,
+    width: f32,
+    tabular_numerics: bool,
+) -> Vec<String> {
     let mut lines = Vec::new();
 
     for paragraph in content.split('\n') {
@@ -92,7 +105,7 @@ fn wrap(content: &str, font: FontRef<'static>, size: f32, width: f32) -> Vec<Str
 
             let longer = format!("{line} {word}");
 
-            if measure(&longer, font, size) <= width {
+            if measure(&longer, font, size, tabular_numerics) <= width {
                 line = longer;
 
                 continue;
@@ -110,13 +123,19 @@ fn wrap(content: &str, font: FontRef<'static>, size: f32, width: f32) -> Vec<Str
 }
 
 // drops letters from the end until the rest and "…" fit
-fn elide(line: &str, font: FontRef<'static>, size: f32, width: f32) -> String {
+fn elide(
+    line: &str,
+    font: FontRef<'static>,
+    size: f32,
+    width: f32,
+    tabular_numerics: bool,
+) -> String {
     let mut kept = String::from(line.trim_end());
 
     loop {
         let shortened = format!("{kept}…");
 
-        if kept.is_empty() || measure(&shortened, font, size) <= width {
+        if kept.is_empty() || measure(&shortened, font, size, tabular_numerics) <= width {
             return shortened;
         }
 
@@ -125,14 +144,14 @@ fn elide(line: &str, font: FontRef<'static>, size: f32, width: f32) -> String {
 }
 
 // where the letters' ink starts and ends, counted from the pen's starting point
-pub fn ink(content: &str, font: FontRef<'static>, size: f32) -> (f32, f32) {
+pub fn ink(content: &str, font: FontRef<'static>, size: f32, tabular_numerics: bool) -> (f32, f32) {
     let mut pen = 0.0;
 
     let mut left = f32::MAX;
     let mut right = f32::MIN;
 
     for letter in content.chars() {
-        let measured = font::measure_letter(font, letter, size);
+        let measured = font::measure_letter(font, letter, size, tabular_numerics);
 
         // a space has no ink, only an advance
         if let Some(bounds) = bounds(measured.font, measured.id) {

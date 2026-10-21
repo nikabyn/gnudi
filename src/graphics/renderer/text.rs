@@ -25,10 +25,13 @@ impl Renderer {
         size: f32,
         color: Color,
         area: Area,
+        tabular_numerics: bool,
     ) {
         match self.transform.even_scale() {
-            Some(scale) => self.text_pictures(content, font, size * scale, color, area),
-            None => self.text_outlines(content, font, size, color, area),
+            Some(scale) => {
+                self.text_pictures(content, font, size * scale, color, area, tabular_numerics)
+            }
+            None => self.text_outlines(content, font, size, color, area, tabular_numerics),
         }
     }
 
@@ -43,6 +46,7 @@ impl Renderer {
         pixel_size: f32,
         color: Color,
         area: Area,
+        tabular_numerics: bool,
     ) {
         let ascent = font.metrics(font::coords(font)).scale(pixel_size).ascent;
 
@@ -54,9 +58,9 @@ impl Renderer {
         let mut pen = 0.0;
 
         for letter in content.chars() {
-            let measured = font::measure_letter(font, letter, pixel_size);
+            let measured = font::measure_letter(font, letter, pixel_size, tabular_numerics);
 
-            let letter_x = line_x + f32::round(pen);
+            let letter_x = line_x + f32::round(pen) + measured.offset_x;
 
             pen += measured.advance;
 
@@ -78,6 +82,7 @@ impl Renderer {
         size: f32,
         color: Color,
         area: Area,
+        tabular_numerics: bool,
     ) {
         let ascent = font.metrics(font::coords(font)).scale(size).ascent;
 
@@ -86,9 +91,9 @@ impl Renderer {
         let mut pen_x = area.x;
 
         for letter in content.chars() {
-            let measured = font::measure_letter(font, letter, size);
+            let measured = font::measure_letter(font, letter, size, tabular_numerics);
 
-            let letter_x = pen_x;
+            let letter_x = pen_x + measured.offset_x;
 
             pen_x += measured.advance;
 

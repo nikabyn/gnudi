@@ -16,6 +16,7 @@ pub struct Text {
     font: Option<String>,
     weight: Weight,
     rules: Rules,
+    tabular_numerics: bool,
 
     // sized by the letters' own shapes instead of their advance, so an icon centers exactly
     tight: bool,
@@ -31,6 +32,7 @@ impl Text {
             weight: Weight::Regular,
             rules: Rules::default(),
             tight: false,
+            tabular_numerics: false,
         }
     }
 
@@ -54,6 +56,12 @@ impl Text {
 
     pub fn weight(mut self, weight: impl Into<Weight>) -> Self {
         self.weight = weight.into();
+
+        self
+    }
+
+    pub fn tabular_numerics(mut self, enable: bool) -> Self {
+        self.tabular_numerics = enable;
 
         self
     }
@@ -86,7 +94,14 @@ impl Text {
     pub fn height_in(&self, width: f32) -> f32 {
         let font = self.face();
 
-        let arranged = lines::arrange(&self.content, font, self.size, width, self.rules);
+        let arranged = lines::arrange(
+            &self.content,
+            font,
+            self.size,
+            width,
+            self.rules,
+            self.tabular_numerics,
+        );
 
         lines::stack_height(font, self.size, arranged.len())
     }
@@ -104,12 +119,18 @@ impl Widget for Text {
         }
 
         if self.tight {
-            let (left, right) = lines::ink(&self.content, self.face(), self.size);
+            let (left, right) =
+                lines::ink(&self.content, self.face(), self.size, self.tabular_numerics);
 
             return Size::Fixed(right - left);
         }
 
-        Size::Fixed(lines::measure(&self.content, self.face(), self.size))
+        Size::Fixed(lines::measure(
+            &self.content,
+            self.face(),
+            self.size,
+            self.tabular_numerics,
+        ))
     }
 
     fn height(&self) -> Size {
@@ -131,14 +152,21 @@ impl Widget for Text {
 
         // the ink starts at the area's left edge, not the pen
         let area = if self.tight {
-            let (left, _) = lines::ink(&self.content, font, self.size);
+            let (left, _) = lines::ink(&self.content, font, self.size, self.tabular_numerics);
 
             Area::new(area.x - left, area.y, area.width, area.height)
         } else {
             area
         };
 
-        let arranged = lines::arrange(&self.content, font, self.size, area.width, self.rules);
+        let arranged = lines::arrange(
+            &self.content,
+            font,
+            self.size,
+            area.width,
+            self.rules,
+            self.tabular_numerics,
+        );
 
         let line_height = lines::height(font, self.size);
         let spacing = lines::spacing(font, self.size);
@@ -148,7 +176,14 @@ impl Widget for Text {
         for line in arranged {
             let line_area = Area::new(area.x, top, area.width, line_height);
 
-            renderer.text(&line, font, self.size, self.color, line_area);
+            renderer.text(
+                &line,
+                font,
+                self.size,
+                self.color,
+                line_area,
+                self.tabular_numerics,
+            );
 
             top += spacing;
         }
