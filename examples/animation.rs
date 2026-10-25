@@ -1,8 +1,8 @@
 use std::time::Duration;
 
 use amane::{
-    Animation, App, Button, Color, Easing, Horizontal, Layer, LayerWindow, Margin, Parent,
-    Rectangle, Service, Text, Vertical,
+    Animation, App, Button, Color, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle,
+    Service, Text, Vertical, easing_linear,
 };
 
 struct Panel {
@@ -28,7 +28,7 @@ impl Service for Panel {
             slide: Animation::new(10.0).duration(slow),
             fade: Animation::new(1.0).duration(slow),
 
-            height: Animation::new(100.0).easing(Easing::InOut),
+            height: Animation::new(100.0).easing(easing_linear),
             color: Animation::new(Color::BLUE),
         }
     }

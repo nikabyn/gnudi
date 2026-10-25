@@ -44,6 +44,10 @@ impl Color {
         self.a
     }
 
+    pub fn with_alpha(self, a: u8) -> Self {
+        Self { a: a, ..self }
+    }
+
     // "#rrggbb", or "#rrggbbaa" when not fully opaque
     pub fn hex(&self) -> String {
         let rgb = format!("#{:02x}{:02x}{:02x}", self.r, self.g, self.b);

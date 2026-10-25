@@ -36,7 +36,7 @@ impl Signal {
 }
 
 impl Bus {
-    // waits for each matching signal, so call it from a service thread, not from view()
+    /// waits for each matching signal, so call it from a service thread, not from view()
     pub fn signals(&self, interface: &str, name: &str) -> Signals {
         let rule = MatchRule::builder()
             .msg_type(Type::Signal)

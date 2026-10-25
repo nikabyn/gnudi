@@ -2,6 +2,7 @@ use std::path::{Path, PathBuf};
 
 use crate::graphics::{Area, image};
 
+#[derive(Debug)]
 pub struct Image {
     pub(crate) path: PathBuf,
     pub(crate) fit: Fit,

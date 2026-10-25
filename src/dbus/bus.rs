@@ -20,21 +20,21 @@ pub struct Bus {
 }
 
 impl Bus {
-    // the user's own programs: media players, notifications, the tray
+    /// the user's own programs: media players, notifications, the tray
     pub fn session() -> Self {
         Self {
             connection: SESSION.as_ref(),
         }
     }
 
-    // programs shared by every user: NetworkManager, UPower, logind
+    /// programs shared by every user: NetworkManager, UPower, logind
     pub fn system() -> Self {
         Self {
             connection: SYSTEM.as_ref(),
         }
     }
 
-    /*
+    /**
      * a failed call gives Value::Nothing instead of panicking,
      * because a player or network service that is not running is normal
      */
@@ -108,7 +108,7 @@ impl Bus {
         );
     }
 
-    // sent to everyone watching, and a failed send only means nobody hears it
+    /// sent to everyone watching, and a failed send only means nobody hears it
     pub fn emit(&self, path: &str, interface: &str, name: &str, arguments: &[Argument]) {
         let Some(connection) = self.connection else {
             return;
@@ -125,7 +125,7 @@ impl Bus {
         let _ = connection.emit_signal(None::<&str>, path, interface, name, &body);
     }
 
-    // false when another program already owns the name, amane never takes it from them
+    /// false when another program already owns the name, amane never takes it from them
     pub fn own(&self, name: &str) -> bool {
         let Some(connection) = self.connection else {
             return false;

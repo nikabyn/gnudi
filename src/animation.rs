@@ -1,6 +1,6 @@
 use std::time::{Duration, Instant};
 
-use crate::Color;
+use crate::{Color, Margin};
 
 pub struct Animation<T: Blend = f32> {
     pub(crate) from: T,
@@ -8,26 +8,12 @@ pub struct Animation<T: Blend = f32> {
 
     pub(crate) started: Instant,
     pub(crate) duration: Duration,
-    pub(crate) easing: Easing,
+    pub(crate) easing: fn(f32) -> f32,
 }
 
 // anything an animation can move between, `amount` goes from 0 at `from` to 1 at `to`
 pub trait Blend: Copy + PartialEq + Send + Sync + 'static {
     fn blend(from: Self, to: Self, amount: f32) -> Self;
-}
-
-// how the speed changes between the start and the target
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
-pub enum Easing {
-    // the same speed the whole way
-    Linear,
-
-    // starts fast and slows down as it arrives
-    #[default]
-    Out,
-
-    // starts slow, speeds up in the middle and slows down again
-    InOut,
 }
 
 impl<T: Blend> Animation<T> {
@@ -39,7 +25,7 @@ impl<T: Blend> Animation<T> {
 
             started: Instant::now(),
             duration: Duration::from_millis(200),
-            easing: Easing::default(),
+            easing: easing_linear,
         }
     }
 
@@ -49,7 +35,7 @@ impl<T: Blend> Animation<T> {
         self
     }
 
-    pub fn easing(mut self, easing: Easing) -> Self {
+    pub fn easing(mut self, easing: fn(f32) -> f32) -> Self {
         self.easing = easing;
 
         self
@@ -76,7 +62,7 @@ impl<T: Blend> Animation<T> {
     }
 
     fn current(&self) -> T {
-        let eased = self.easing.apply(self.progress());
+        let eased = (self.easing)(self.progress());
 
         T::blend(self.from, self.target, eased)
     }
@@ -100,42 +86,77 @@ impl Blend for f32 {
     }
 }
 
+impl Blend for f64 {
+    fn blend(from: Self, to: Self, amount: f32) -> Self {
+        from + (to - from) * (amount as f64)
+    }
+}
+
+impl Blend for u8 {
+    fn blend(from: Self, to: Self, amount: f32) -> Self {
+        let from = f32::from(from);
+        let to = f32::from(to);
+
+        let blended = f32::blend(from, to, amount);
+
+        blended.round() as u8
+    }
+}
+
+impl Blend for i32 {
+    fn blend(from: Self, to: Self, amount: f32) -> Self {
+        let from = f64::from(from);
+        let to = f64::from(to);
+
+        let blended = f64::blend(from, to, amount);
+
+        blended.round() as i32
+    }
+}
+
 impl Blend for Color {
     fn blend(from: Self, to: Self, amount: f32) -> Self {
-        let r = blend_channel(from.r, to.r, amount);
-        let g = blend_channel(from.g, to.g, amount);
-        let b = blend_channel(from.b, to.b, amount);
-        let a = blend_channel(from.a, to.a, amount);
+        let r = u8::blend(from.r, to.r, amount);
+        let g = u8::blend(from.g, to.g, amount);
+        let b = u8::blend(from.b, to.b, amount);
+        let a = u8::blend(from.a, to.a, amount);
 
         Color::rgba(r, g, b, a)
     }
 }
 
-impl Easing {
-    // turns how much time has passed into how far along the way it is, both from 0 to 1
-    pub(crate) fn apply(self, progress: f32) -> f32 {
-        match self {
-            Easing::Linear => progress,
-            Easing::Out => Self::out(progress),
-            Easing::InOut => Self::in_out(progress),
+impl Blend for Margin {
+    fn blend(from: Self, to: Self, amount: f32) -> Self {
+        Margin {
+            top: i32::blend(from.top, to.top, amount),
+            right: i32::blend(from.right, to.right, amount),
+            bottom: i32::blend(from.bottom, to.bottom, amount),
+            left: i32::blend(from.left, to.left, amount),
         }
     }
+}
 
-    fn out(progress: f32) -> f32 {
-        let remaining = 1.0 - progress;
+/// the same speed the whole way
+pub fn easing_linear(progress: f32) -> f32 {
+    progress
+}
 
-        1.0 - remaining * remaining * remaining
+/// starts fast and slows down as it arrives
+pub fn easing_out(progress: f32) -> f32 {
+    let remaining = 1.0 - progress;
+
+    1.0 - remaining * remaining * remaining
+}
+
+/// starts slow, speeds up in the middle and slows down again
+pub fn easing_in_out(progress: f32) -> f32 {
+    if progress < 0.5 {
+        return 4.0 * progress * progress * progress;
     }
 
-    fn in_out(progress: f32) -> f32 {
-        if progress < 0.5 {
-            return 4.0 * progress * progress * progress;
-        }
+    let remaining = 2.0 - 2.0 * progress;
 
-        let remaining = 2.0 - 2.0 * progress;
-
-        1.0 - remaining * remaining * remaining / 2.0
-    }
+    1.0 - remaining * remaining * remaining / 2.0
 }
 
 /*
@@ -145,15 +166,6 @@ impl Easing {
  */
 pub fn request_frame() {
     moving::set();
-}
-
-fn blend_channel(from: u8, to: u8, amount: f32) -> u8 {
-    let from = f32::from(from);
-    let to = f32::from(to);
-
-    let blended = f32::blend(from, to, amount);
-
-    blended.round() as u8
 }
 
 pub mod moving {

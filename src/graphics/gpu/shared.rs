@@ -9,6 +9,7 @@ use vello::wgpu::{
     Queue, RequestAdapterOptions, Surface,
 };
 use vello::{AaSupport, RendererOptions};
+use wgpu::Backends;
 
 use super::target::Display;
 use super::wait::wait;
@@ -48,14 +49,21 @@ pub fn instance(display: *mut c_void) -> Instance {
 fn open_instance(display: *mut c_void) -> Instance {
     let display = Box::new(Display::new(display));
 
-    let descriptor = InstanceDescriptor::new_with_display_handle_from_env(display);
+    let descriptor = InstanceDescriptor {
+        backends: Backends::VULKAN,
+        ..InstanceDescriptor::new_with_display_handle_from_env(display)
+    };
 
     Instance::new(descriptor)
 }
 
 // opened by the first window, with a gpu that can draw to its surface; later windows reuse it
 pub fn get(instance: &Instance, surface: &Surface) -> Shared {
-    SHARED.with_borrow_mut(|shared| shared.get_or_insert_with(|| open(instance, surface)).clone())
+    SHARED.with_borrow_mut(|shared| {
+        shared
+            .get_or_insert_with(|| open(instance, surface))
+            .clone()
+    })
 }
 
 pub fn clear() {

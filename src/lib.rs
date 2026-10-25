@@ -24,7 +24,7 @@ mod wayland;
 mod widgets;
 mod window;
 
-pub use animation::{Animation, Blend, Easing, request_frame};
+pub use animation::{Animation, Blend, easing_in_out, easing_linear, easing_out, request_frame};
 pub use app::App;
 pub use dbus::{Argument, Bus, Method, Signal, Value};
 pub use files::watch_file;
