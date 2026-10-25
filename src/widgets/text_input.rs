@@ -6,7 +6,8 @@ use std::rc::Rc;
 
 use crate::graphics::{Area, Renderer};
 use crate::input::{Target, focus};
-use crate::{Color, Size, Text};
+use crate::{Size, Text};
+use color::{AlphaColor, Srgb};
 
 use super::Widget;
 
@@ -23,7 +24,7 @@ pub struct TextInput {
 
     placeholder: String,
     size: f32,
-    color: Color,
+    color: AlphaColor<Srgb>,
     width: Size,
 
     // shows a dot in place of each letter
@@ -42,7 +43,7 @@ impl TextInput {
             id,
             placeholder: String::new(),
             size: 16.0,
-            color: Color::BLACK,
+            color: AlphaColor::BLACK,
             width: Size::Parent,
             password: false,
             focused: false,
@@ -63,7 +64,7 @@ impl TextInput {
         self
     }
 
-    pub fn color(mut self, color: Color) -> Self {
+    pub fn color(mut self, color: AlphaColor<Srgb>) -> Self {
         self.color = color;
 
         self
@@ -121,7 +122,7 @@ impl TextInput {
         "•".repeat(text.chars().count())
     }
 
-    fn label(&self, content: impl Into<String>, color: Color) -> Text {
+    fn label(&self, content: impl Into<String>, color: AlphaColor<Srgb>) -> Text {
         Text::new(content).size(self.size).color(color)
     }
 
@@ -150,7 +151,7 @@ impl Widget for TextInput {
         let text = fields::get(self.id).text;
 
         // the placeholder is the text color at half strength
-        let faded = Color::rgba(self.color.r, self.color.g, self.color.b, self.color.a / 2);
+        let faded = self.color.multiply_alpha(0.5);
 
         let label = if text.is_empty() {
             self.label(self.placeholder.as_str(), faded)

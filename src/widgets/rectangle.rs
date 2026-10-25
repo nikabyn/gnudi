@@ -5,7 +5,9 @@ mod transform;
 
 use std::path::PathBuf;
 
-use crate::graphics::{Color, VALUE_ROWS};
+use color::{AlphaColor, Srgb};
+
+use crate::graphics::VALUE_ROWS;
 use crate::input::Handlers;
 use crate::{Align, Fill, Padding, Radius, Shadow, Size};
 
@@ -20,7 +22,7 @@ pub struct Rectangle {
     // clockwise from the top left, set apart from radius and never together with it
     pub(crate) corners: Option<[Radius; 4]>,
     pub(crate) border_thickness: f32,
-    pub(crate) border_color: Color,
+    pub(crate) border_color: AlphaColor<Srgb>,
     pub(crate) blur: f32,
     pub(crate) opacity: f32,
     pub(crate) shadow: Option<Shadow>,
@@ -98,7 +100,7 @@ impl Rectangle {
         self
     }
 
-    pub fn border(mut self, thickness: f32, color: impl Into<Color>) -> Self {
+    pub fn border(mut self, thickness: f32, color: impl Into<AlphaColor<Srgb>>) -> Self {
         self.border_thickness = thickness;
         self.border_color = color.into();
 
@@ -192,9 +194,9 @@ impl RectangleNeedsHeight {
             height: height.into(),
             radius: None,
             corners: None,
-            fill: Fill::Color(Color::TRANSPARENT),
+            fill: Fill::Color(AlphaColor::TRANSPARENT),
             border_thickness: 0.0,
-            border_color: Color::TRANSPARENT,
+            border_color: AlphaColor::TRANSPARENT,
             blur: 0.0,
             opacity: 1.0,
             shadow: None,

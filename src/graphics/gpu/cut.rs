@@ -1,9 +1,10 @@
+use color::AlphaColor;
 use vello::Scene;
 use vello::wgpu::{
     BlendComponent, BlendFactor, BlendOperation, BlendState, Device, Texture, TextureFormat,
 };
 
-use crate::graphics::{BezierPath, Color, Transform};
+use crate::graphics::{BezierPath, Transform};
 
 use super::pass::Pass;
 use super::{Gpu, shape, texture};
@@ -19,7 +20,7 @@ impl Gpu {
     ) {
         let mut scene = Scene::new();
 
-        shape::fill(&mut scene, path, transform, Color::WHITE);
+        shape::fill(&mut scene, path, transform, AlphaColor::WHITE);
 
         self.erase_covered(&scene, canvas, strength);
     }

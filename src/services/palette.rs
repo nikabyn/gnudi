@@ -7,24 +7,26 @@ use std::path::{Path, PathBuf};
 use std::thread;
 use std::time::{Duration, SystemTime};
 
+use color::{OpaqueColor, Srgb};
+
+use crate::Service;
 use crate::graphics::image;
-use crate::{Color, Service};
 
 // the colors used until an image is opened
-const FALLBACK_BACKGROUND: Color = Color::rgb(0x11, 0x11, 0x1b);
-const FALLBACK_ACCENT: Color = Color::rgb(0x89, 0xb4, 0xfa);
+const FALLBACK_BACKGROUND: OpaqueColor<Srgb> = OpaqueColor::from_rgb8(0x11, 0x11, 0x1b);
+const FALLBACK_ACCENT: OpaqueColor<Srgb> = OpaqueColor::from_rgb8(0x89, 0xb4, 0xfa);
 
-// colors taken from an image, usually the wallpaper, most common first
+/// colors taken from an image, usually the wallpaper, most common first
 #[derive(Default)]
 pub struct Palette {
     path: Option<PathBuf>,
 
     count: usize,
 
-    // when the file was last read, so a rewrite of the same path is noticed
+    /// when the file was last read, so a rewrite of the same path is noticed
     modified: Option<SystemTime>,
 
-    colors: Vec<Color>,
+    colors: Vec<OpaqueColor<Srgb>>,
 }
 
 // polled, so both a new file at the same path and a new path are picked up
@@ -37,7 +39,7 @@ impl Service for Palette {
         Duration::from_millis(500)
     }
 
-    /*
+    /**
      * the image is decoded without holding the service,
      * so the window keeps drawing while a large wallpaper loads
      */
@@ -82,7 +84,7 @@ impl Service for Palette {
 }
 
 impl Palette {
-    /*
+    /**
      * reads the image right away, so the first frame already has its
      * colors; 16 is enough for a whole shell's theme
      */
@@ -97,36 +99,36 @@ impl Palette {
     }
 
     // sorted by how much of the image each one covers
-    pub fn colors(&self) -> &[Color] {
+    pub fn colors(&self) -> &[OpaqueColor<Srgb>] {
         &self.colors
     }
 
     // the color the image shows most
-    pub fn dominant(&self) -> Color {
+    pub fn dominant(&self) -> OpaqueColor<Srgb> {
         self.colors.first().copied().unwrap_or(FALLBACK_BACKGROUND)
     }
 
     // the most vivid color, for highlights and the focused workspace
-    pub fn accent(&self) -> Color {
+    pub fn accent(&self) -> OpaqueColor<Srgb> {
         pick::most_vivid(&self.colors).unwrap_or(FALLBACK_ACCENT)
     }
 
     // the darkest color, so light text always reads on it
-    pub fn background(&self) -> Color {
+    pub fn background(&self) -> OpaqueColor<Srgb> {
         pick::darkest(&self.colors).unwrap_or(FALLBACK_BACKGROUND)
     }
 
     // readable on background, tinted by the image when a palette color is readable
-    pub fn foreground(&self) -> Color {
+    pub fn foreground(&self) -> OpaqueColor<Srgb> {
         pick::readable_on(self.background(), &self.colors)
     }
 
     // white or black, for text on top of accent
-    pub fn on_accent(&self) -> Color {
+    pub fn on_accent(&self) -> OpaqueColor<Srgb> {
         pick::plain_on(self.accent())
     }
 
-    /*
+    /**
      * true when the image looks bright overall, for choosing a light theme;
      * judged by lightness as the eye sees it, where 50 is middle grey, since
      * linear brightness calls even a pale pastel picture dark
@@ -144,7 +146,7 @@ impl Palette {
     }
 }
 
-fn quantize(path: &Path, count: usize) -> Vec<Color> {
+fn quantize(path: &Path, count: usize) -> Vec<OpaqueColor<Srgb>> {
     /*
      * a wallpaper can be read while it's still being written,
      * and a half written file must not take the shell down with it

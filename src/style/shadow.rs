@@ -1,9 +1,9 @@
-use crate::Color;
+use color::{AlphaColor, Srgb};
+
 use crate::graphics::Area;
 
 pub struct Shadow {
-    pub(crate) color: Color,
-    pub(crate) opacity: f32,
+    pub(crate) color: AlphaColor<Srgb>,
     pub(crate) blur: f32,
 
     pub(crate) x: f32,
@@ -23,16 +23,16 @@ pub enum Kind {
 }
 
 impl Shadow {
-    pub fn drop(color: impl Into<Color>) -> Self {
+    pub fn drop(color: impl Into<AlphaColor<Srgb>>) -> Self {
         Self::new(color.into(), Kind::Drop)
     }
 
-    pub fn inner(color: impl Into<Color>) -> Self {
+    pub fn inner(color: impl Into<AlphaColor<Srgb>>) -> Self {
         Self::new(color.into(), Kind::Inner)
     }
 
-    pub fn opacity(mut self, opacity: f32) -> Self {
-        self.opacity = opacity;
+    pub fn with_alpha(mut self, alpha: f32) -> Self {
+        self.color = self.color.with_alpha(alpha);
 
         self
     }
@@ -50,29 +50,14 @@ impl Shadow {
         self
     }
 
-    fn new(color: Color, kind: Kind) -> Self {
+    fn new(color: impl Into<AlphaColor<Srgb>>, kind: Kind) -> Self {
         Self {
-            color,
-            opacity: 1.0,
+            color: color.into(),
             blur: 0.0,
             x: 0.0,
             y: 0.0,
             kind,
         }
-    }
-
-    // opacity thins out whatever alpha the color already has
-    pub(crate) fn tint(&self) -> Color {
-        let opacity = f32::clamp(self.opacity, 0.0, 1.0);
-
-        let alpha = f32::from(self.color.a) * opacity;
-
-        Color::rgba(
-            self.color.r,
-            self.color.g,
-            self.color.b,
-            alpha.round() as u8,
-        )
     }
 
     pub(crate) fn place(&self, area: Area) -> Area {

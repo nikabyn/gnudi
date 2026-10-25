@@ -1,9 +1,10 @@
 use std::cell::RefCell;
 use std::collections::HashMap;
 
+use color::{AlphaColor, Srgb};
 use swash::FontRef;
 
-use crate::graphics::{Area, BezierPath, Color, Outline, Renderer, Transform, font};
+use crate::graphics::{Area, BezierPath, Outline, Renderer, Transform, font};
 
 use super::Command;
 
@@ -23,7 +24,7 @@ impl Renderer {
         content: &str,
         font: FontRef<'static>,
         size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         area: Area,
         tabular_numerics: bool,
     ) {
@@ -44,7 +45,7 @@ impl Renderer {
         content: &str,
         font: FontRef<'static>,
         pixel_size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         area: Area,
         tabular_numerics: bool,
     ) {
@@ -80,7 +81,7 @@ impl Renderer {
         content: &str,
         font: FontRef<'static>,
         size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         area: Area,
         tabular_numerics: bool,
     ) {

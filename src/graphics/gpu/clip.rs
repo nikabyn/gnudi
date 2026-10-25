@@ -1,10 +1,11 @@
+use color::AlphaColor;
 use vello::Scene;
 use vello::kurbo::{self, Affine, Shape};
 use vello::peniko::{Fill, Mix};
 use vello::wgpu::Texture;
 
 use crate::graphics::renderer::Command;
-use crate::graphics::{Area, BezierPath, Color, Corners, Transform};
+use crate::graphics::{Area, BezierPath, Corners, Transform};
 
 use super::Gpu;
 use super::convert::{affine, bezier, paint};
@@ -60,7 +61,7 @@ impl Gpu {
         scene.fill(
             Fill::EvenOdd,
             Affine::IDENTITY,
-            paint(Color::WHITE),
+            paint(AlphaColor::WHITE),
             None,
             &outside,
         );

@@ -1,8 +1,10 @@
+use color::AlphaColor;
+use color::Srgb;
 use vello::Scene;
 use vello::kurbo;
 use vello::peniko::{self, Compose, Fill, Mix};
 
-use crate::graphics::{Area, BezierPath, Color, Corners, Transform};
+use crate::graphics::{Area, BezierPath, Corners, Transform};
 
 use super::convert::{affine, bezier, paint};
 
@@ -11,7 +13,7 @@ pub(super) fn drop_shadow(
     area: Area,
     radius: Corners,
     transform: Transform,
-    color: Color,
+    color: AlphaColor<Srgb>,
     blur: f32,
 ) {
     // vello blurs one radius, so shadows round every corner like the largest; trace a blurred path if mixed corners show
@@ -30,7 +32,7 @@ pub(super) fn inner_shadow(
     hole: Area,
     radius: Corners,
     transform: Transform,
-    color: Color,
+    color: AlphaColor<Srgb>,
     blur: f32,
 ) {
     let transform = affine(transform);

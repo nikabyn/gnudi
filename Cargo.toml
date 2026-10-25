@@ -1,11 +1,11 @@
 [package]
-name = "amane"
+name = "gnudi"
 version = "0.1.2"
 edition = "2024"
 license = "MIT"
 
 [lib]
-name = "amane"
+name = "gnudi"
 path = "src/lib.rs"
 
 [dependencies]
@@ -29,6 +29,7 @@ zbus = "5.19.0"
 libpulse-binding = "2.30"
 # turns svg icons into pixels once, so they draw like any other image
 resvg = { version = "0.49.0", default-features = false }
+color = { git = "https://github.com/linebender/color.git", rev = "943c533f229aa75ce176b7825351710cdc2d577a" }
 
 [dev-dependencies]
 chrono = "0.4"

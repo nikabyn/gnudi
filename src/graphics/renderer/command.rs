@@ -1,10 +1,11 @@
-use crate::graphics::image::Bitmap;
 use std::path::PathBuf;
 use std::sync::Arc;
 
+use color::{AlphaColor, Srgb};
 use swash::FontRef;
 
-use crate::graphics::{Area, BezierPath, Cap, Color, Corners, Gradient, Transform};
+use crate::graphics::image::Bitmap;
+use crate::graphics::{Area, BezierPath, Cap, Corners, Gradient, Transform};
 
 pub enum Command {
     // one letter as a picture, at a whole device pixel; x and y are where its baseline starts
@@ -12,7 +13,7 @@ pub enum Command {
         font: FontRef<'static>,
         id: u16,
         size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         x: f32,
         y: f32,
     },
@@ -22,7 +23,7 @@ pub enum Command {
         area: Area,
         radius: Corners,
         transform: Transform,
-        color: Color,
+        color: AlphaColor<Srgb>,
     },
 
     // a line along the inside edge of a rounded rectangle
@@ -31,13 +32,13 @@ pub enum Command {
         radius: Corners,
         thickness: f32,
         transform: Transform,
-        color: Color,
+        color: AlphaColor<Srgb>,
     },
 
     Fill {
         path: BezierPath,
         transform: Transform,
-        color: Color,
+        color: AlphaColor<Srgb>,
     },
 
     // the area says where the gradient starts and ends
@@ -53,7 +54,7 @@ pub enum Command {
         path: BezierPath,
         transform: Transform,
         thickness: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         cap: Cap,
     },
 
@@ -71,7 +72,7 @@ pub enum Command {
         area: Area,
         radius: Corners,
         transform: Transform,
-        color: Color,
+        color: AlphaColor<Srgb>,
         blur: f32,
     },
 
@@ -81,7 +82,7 @@ pub enum Command {
         hole: Area,
         radius: Corners,
         transform: Transform,
-        color: Color,
+        color: AlphaColor<Srgb>,
         blur: f32,
     },
 

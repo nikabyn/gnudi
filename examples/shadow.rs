@@ -21,7 +21,7 @@ fn view() -> LayerWindow {
                         .fill(Color::WHITE)
                         .shadow(
                             Shadow::drop("#000000")
-                                .opacity(0.3)
+                                .with_alpha(0.3)
                                 .blur(12.0)
                                 .offset(0.0, 4.0)
                         ),
@@ -31,7 +31,7 @@ fn view() -> LayerWindow {
                         .height(120.0)
                         .radius(20.0)
                         .fill(Color::WHITE)
-                        .shadow(Shadow::inner("#000000").opacity(0.3).blur(8.0)),
+                        .shadow(Shadow::inner("#000000").with_alpha(0.3).blur(8.0)),
                 ]),
             ])),
     )

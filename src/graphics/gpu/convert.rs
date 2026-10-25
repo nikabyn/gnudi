@@ -1,8 +1,9 @@
+use color::{AlphaColor, Srgb};
 use vello::kurbo::{Affine, BezPath};
 use vello::peniko;
 
 use crate::graphics::path::Segment;
-use crate::graphics::{BezierPath, Color, Transform};
+use crate::graphics::{BezierPath, Transform};
 
 pub(super) fn bezier(path: &BezierPath) -> BezPath {
     let mut bezier = BezPath::new();
@@ -37,8 +38,8 @@ pub(super) fn affine(transform: Transform) -> Affine {
     ])
 }
 
-pub(super) fn paint(color: Color) -> peniko::Color {
-    peniko::Color::from_rgba8(color.r, color.g, color.b, color.a)
+pub(super) fn paint(color: AlphaColor<Srgb>) -> peniko::Color {
+    peniko::Color::new(color.components)
 }
 
 fn point(x: f32, y: f32) -> (f64, f64) {

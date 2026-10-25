@@ -1,5 +1,7 @@
+use color::AlphaColor;
+
 use crate::graphics::{Area, Renderer};
-use crate::{Color, Shape, Size, Widget};
+use crate::{Shape, Size, Widget};
 
 // draws its shapes in its own coordinates, with 0,0 at its top left corner
 pub struct Canvas {
@@ -73,7 +75,7 @@ fn paint(shape: &dyn Shape, renderer: &mut Renderer, area: Area) {
     let mut group = renderer.group();
 
     // shapes start without a fill, and drawing an invisible one would still cost the gpu
-    if style.fill != Color::TRANSPARENT {
+    if style.fill != AlphaColor::TRANSPARENT {
         group.fill_path(&path, area, style.fill);
     }
 

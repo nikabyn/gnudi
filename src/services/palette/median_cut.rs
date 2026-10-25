@@ -1,4 +1,4 @@
-use crate::Color;
+use color::{OpaqueColor, Srgb};
 
 // one group of similar pixels, it becomes one palette color
 struct Bucket {
@@ -31,7 +31,7 @@ impl Bucket {
         (widest, widest_range)
     }
 
-    fn average(&self) -> Color {
+    fn average(&self) -> OpaqueColor<Srgb> {
         let mut total = [0u64; 3];
 
         for pixel in &self.pixels {
@@ -46,17 +46,17 @@ impl Bucket {
         let green = (total[1] / count) as u8;
         let blue = (total[2] / count) as u8;
 
-        Color::rgb(red, green, blue)
+        OpaqueColor::from_rgb8(red, green, blue)
     }
 }
 
-/*
+/**
  * median cut: start with every pixel in one bucket, then keep
  * splitting the bucket with the widest color spread in half along
  * that channel, until there are `count` buckets. each bucket's
  * average is one color, and its size is how much of the image it covers
  */
-pub fn quantize(pixels: Vec<[u8; 3]>, count: usize) -> Vec<Color> {
+pub fn quantize(pixels: Vec<[u8; 3]>, count: usize) -> Vec<OpaqueColor<Srgb>> {
     if pixels.is_empty() || count == 0 {
         return Vec::new();
     }

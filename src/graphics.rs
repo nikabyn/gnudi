@@ -1,5 +1,4 @@
 mod cap;
-mod color;
 pub mod font;
 mod geometry;
 mod gpu;
@@ -13,7 +12,6 @@ mod transform;
 mod weight;
 
 pub use cap::Cap;
-pub use color::Color;
 pub use geometry::{Area, Corners};
 pub use gpu::Gpu;
 pub(crate) use gpu::Session as GpuSession;

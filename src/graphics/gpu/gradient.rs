@@ -1,8 +1,9 @@
+use color::{AlphaColor, Srgb};
 use vello::Scene;
 use vello::kurbo::Point;
 use vello::peniko::{self, Fill};
 
-use crate::graphics::{Area, BezierPath, Color, Gradient, Transform};
+use crate::graphics::{Area, BezierPath, Gradient, Transform};
 
 use super::convert::{affine, bezier, paint};
 
@@ -56,7 +57,7 @@ fn radial(area: Area) -> peniko::Gradient {
     peniko::Gradient::new_radial(center, radius)
 }
 
-fn colors(stops: &[(f32, Color)]) -> Vec<(f32, peniko::Color)> {
+fn colors(stops: &[(f32, AlphaColor<Srgb>)]) -> Vec<(f32, peniko::Color)> {
     stops
         .iter()
         .map(|&(offset, color)| (offset, paint(color)))

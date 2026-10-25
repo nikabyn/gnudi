@@ -1,13 +1,11 @@
+use color::{AlphaColor, Srgb};
+use swash::FontRef;
 use vello::Scene;
 use vello::kurbo::Affine;
 use vello::peniko::{Blob, ImageAlphaType, ImageBrush, ImageData, ImageFormat, ImageQuality};
 
-use swash::FontRef;
-
-use crate::graphics::Color;
-use crate::graphics::letter;
-
 use super::Gpu;
+use crate::graphics::letter;
 
 /*
  * letters normally go to the quads; this is the way vello draws them, for the
@@ -45,15 +43,16 @@ impl Gpu {
         font: FontRef<'static>,
         id: u16,
         size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         x: f32,
         y: f32,
     ) {
+        let rgba8_color = color.to_rgba8();
         let key = (
             font.key.value(),
             id,
             size.to_bits(),
-            u32::from_be_bytes([color.r, color.g, color.b, color.a]),
+            u32::from_be_bytes([rgba8_color.r, rgba8_color.g, rgba8_color.b, rgba8_color.a]),
         );
 
         if self.glyphs.len() >= MAX_GLYPHS && !self.glyphs.contains_key(&key) {
@@ -79,11 +78,12 @@ impl Gpu {
     }
 }
 
-fn rasterize(font: FontRef<'static>, id: u16, size: f32, color: Color) -> Option<Glyph> {
+fn rasterize(font: FontRef<'static>, id: u16, size: f32, color: AlphaColor<Srgb>) -> Option<Glyph> {
     let letter = letter::rasterize(font, id, size)?;
 
     let mut pixels = Vec::with_capacity(letter.coverage.len() * 4);
 
+    let color = color.to_rgba8();
     for amount in letter.coverage {
         let color_alpha = u16::from(color.a);
         let coverage = u16::from(amount);

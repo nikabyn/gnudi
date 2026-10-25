@@ -4,18 +4,19 @@ mod line;
 mod path;
 mod round;
 
-use crate::graphics::{self, Cap, Color};
+use crate::graphics::{self, Cap};
 
 pub use arc::Arc;
 pub use circle::Circle;
+use color::{AlphaColor, Srgb};
 pub use line::Line;
 pub use path::Path;
 
 pub struct Style {
-    pub(crate) fill: Color,
+    pub(crate) fill: AlphaColor<Srgb>,
 
     pub(crate) stroke_thickness: f32,
-    pub(crate) stroke_color: Color,
+    pub(crate) stroke_color: AlphaColor<Srgb>,
     pub(crate) cap: Cap,
 
     pub(crate) opacity: f32,
@@ -30,7 +31,7 @@ pub trait Shape {
 
     fn style_mut(&mut self) -> &mut Style;
 
-    fn fill(mut self, color: impl Into<Color>) -> Self
+    fn fill(mut self, color: impl Into<AlphaColor<Srgb>>) -> Self
     where
         Self: Sized,
     {
@@ -39,7 +40,7 @@ pub trait Shape {
         self
     }
 
-    fn stroke(mut self, thickness: f32, color: impl Into<Color>) -> Self
+    fn stroke(mut self, thickness: f32, color: impl Into<AlphaColor<Srgb>>) -> Self
     where
         Self: Sized,
     {
@@ -72,10 +73,10 @@ pub trait Shape {
 impl Default for Style {
     fn default() -> Self {
         Self {
-            fill: Color::TRANSPARENT,
+            fill: AlphaColor::TRANSPARENT,
 
             stroke_thickness: 0.0,
-            stroke_color: Color::TRANSPARENT,
+            stroke_color: AlphaColor::TRANSPARENT,
             cap: Cap::Butt,
 
             opacity: 1.0,

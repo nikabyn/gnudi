@@ -1,10 +1,11 @@
+use color::{AlphaColor, Srgb};
 use vello::wgpu::{Device, Queue};
 
 use swash::FontRef;
 
 use crate::graphics::gpu::picture;
 use crate::graphics::image::Bitmap;
-use crate::graphics::{Area, Color, Corners};
+use crate::graphics::{Area, Corners};
 
 use super::clip::NO_CLIP;
 use super::pipeline::picture_group;
@@ -12,11 +13,17 @@ use super::{Clip, Clips, LETTER, PICTURE, QUAD_SIZE, Quads, Run, SHAPE};
 
 impl Quads {
     // area and radius in canvas pixels
-    pub fn rectangle(&mut self, area: Area, radius: Corners, color: Color, clips: Clips) {
+    pub fn rectangle(
+        &mut self,
+        area: Area,
+        radius: Corners,
+        color: AlphaColor<Srgb>,
+        clips: Clips,
+    ) {
         self.push(
             area,
             (radius, 0.0),
-            rgba(color),
+            color.components,
             clips,
             SHAPE,
             [0.0; 4],
@@ -41,13 +48,13 @@ impl Quads {
         area: Area,
         radius: Corners,
         thickness: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         clips: Clips,
     ) {
         self.push(
             area,
             (radius, thickness),
-            rgba(color),
+            color.components,
             clips,
             SHAPE,
             [0.0; 4],
@@ -63,7 +70,7 @@ impl Quads {
         font: FontRef<'static>,
         id: u16,
         size: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         x: f32,
         y: f32,
         clips: Clips,
@@ -89,7 +96,7 @@ impl Quads {
         self.push(
             area,
             (Corners::default(), 0.0),
-            rgba(color),
+            color.components,
             clips,
             LETTER,
             texels,
@@ -201,8 +208,4 @@ impl Quads {
             count: 1,
         });
     }
-}
-
-fn rgba(color: Color) -> [f32; 4] {
-    [color.r, color.g, color.b, color.a].map(|channel| f32::from(channel) / 255.0)
 }

@@ -9,27 +9,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "320119579fcad9c21884f5c4861d16174d0e06250625266f50fe6898340abefa"
 
 [[package]]
-name = "amane"
-version = "0.1.2"
-dependencies = [
- "chrono",
- "fontconfig",
- "inotify",
- "libpulse-binding",
- "png",
- "resvg",
- "serde_json",
- "smithay-client-toolkit",
- "swash",
- "vello",
- "wayland-backend",
- "wayland-client",
- "wgpu",
- "zbus",
- "zune-jpeg",
-]
-
-[[package]]
 name = "android_system_properties"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -330,6 +309,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ec7c5eb7a16992b1904d76c517d170ab353b0e0b3d5a0c81a8a0cd1037893cf"
 
 [[package]]
+name = "color"
+version = "0.3.3"
+source = "git+https://github.com/linebender/color.git?rev=943c533f229aa75ce176b7825351710cdc2d577a#943c533f229aa75ce176b7825351710cdc2d577a"
+
+[[package]]
 name = "concurrent-queue"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -598,6 +582,28 @@ dependencies = [
  "cfg-if",
  "libc",
  "r-efi",
+]
+
+[[package]]
+name = "gnudi"
+version = "0.1.2"
+dependencies = [
+ "chrono",
+ "color 0.3.3 (git+https://github.com/linebender/color.git?rev=943c533f229aa75ce176b7825351710cdc2d577a)",
+ "fontconfig",
+ "inotify",
+ "libpulse-binding",
+ "png",
+ "resvg",
+ "serde_json",
+ "smithay-client-toolkit",
+ "swash",
+ "vello",
+ "wayland-backend",
+ "wayland-client",
+ "wgpu",
+ "zbus",
+ "zune-jpeg",
 ]
 
 [[package]]
@@ -968,7 +974,7 @@ version = "0.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "839c8299360d2e998bdb106dc0a6cd71dcc5f4df51df1b620361bf50e283cca6"
 dependencies = [
- "color",
+ "color 0.3.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "kurbo",
  "linebender_resource_handle",
  "smallvec",

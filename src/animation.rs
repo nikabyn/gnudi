@@ -1,6 +1,8 @@
 use std::time::{Duration, Instant};
 
-use crate::{Color, Margin};
+use color::{AlphaColor, Srgb};
+
+use crate::Margin;
 
 pub struct Animation<T: Blend = f32> {
     pub(crate) from: T,
@@ -114,14 +116,9 @@ impl Blend for i32 {
     }
 }
 
-impl Blend for Color {
+impl Blend for AlphaColor<Srgb> {
     fn blend(from: Self, to: Self, amount: f32) -> Self {
-        let r = u8::blend(from.r, to.r, amount);
-        let g = u8::blend(from.g, to.g, amount);
-        let b = u8::blend(from.b, to.b, amount);
-        let a = u8::blend(from.a, to.a, amount);
-
-        Color::rgba(r, g, b, a)
+        AlphaColor::lerp_rect(from, to, amount)
     }
 }
 

@@ -1,17 +1,20 @@
 use std::sync::Arc;
 
+use color::{AlphaColor, Srgb};
+
 use crate::graphics::image::Bitmap;
-use crate::graphics::{Area, BezierPath, Cap, Color, Corners, Gradient, Renderer, Transform};
+use crate::graphics::{Area, BezierPath, Cap, Corners, Gradient, Renderer, Transform};
 
 use super::Command;
 
 impl Renderer {
-    pub fn rectangle(&mut self, area: Area, color: Color, radius: Corners) {
+    pub fn rectangle(&mut self, area: Area, color: AlphaColor<Srgb>, radius: Corners) {
         /*
          * an invisible fill still counts as drawing, and one before a shader
          * makes the gpu run a whole extra drawing pass each frame
          */
-        if color.a == 0 {
+        let [.., alpha] = color.components;
+        if alpha == 0.0 {
             return;
         }
 
@@ -27,9 +30,10 @@ impl Renderer {
         });
     }
 
-    pub fn border(&mut self, area: Area, radius: Corners, thickness: f32, color: Color) {
+    pub fn border(&mut self, area: Area, radius: Corners, thickness: f32, color: AlphaColor<Srgb>) {
         // a zero width line would still draw as a hairline
-        if thickness == 0.0 || color.a == 0 {
+        let [.., alpha] = color.components;
+        if thickness == 0.0 || alpha == 0.0 {
             return;
         }
 
@@ -91,7 +95,7 @@ impl Renderer {
     }
 
     // the path is in the area's own coordinates, with 0,0 at its top left corner
-    pub fn fill_path(&mut self, path: &BezierPath, area: Area, color: Color) {
+    pub fn fill_path(&mut self, path: &BezierPath, area: Area, color: AlphaColor<Srgb>) {
         self.commands.push(Command::Fill {
             path: path.clone(),
             transform: self.inside(area),
@@ -104,7 +108,7 @@ impl Renderer {
         path: &BezierPath,
         area: Area,
         thickness: f32,
-        color: Color,
+        color: AlphaColor<Srgb>,
         cap: Cap,
     ) {
         self.commands.push(Command::Stroke {

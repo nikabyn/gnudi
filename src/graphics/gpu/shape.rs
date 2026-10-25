@@ -1,12 +1,18 @@
+use color::{AlphaColor, Srgb};
 use vello::Scene;
 use vello::kurbo::{self, Join, Stroke};
 use vello::peniko::Fill;
 
-use crate::graphics::{Area, BezierPath, Cap, Color, Corners, Transform};
+use crate::graphics::{Area, BezierPath, Cap, Corners, Transform};
 
 use super::convert::{affine, bezier, paint};
 
-pub(super) fn fill(scene: &mut Scene, path: &BezierPath, transform: Transform, color: Color) {
+pub(super) fn fill(
+    scene: &mut Scene,
+    path: &BezierPath,
+    transform: Transform,
+    color: AlphaColor<Srgb>,
+) {
     scene.fill(
         Fill::NonZero,
         affine(transform),
@@ -21,7 +27,7 @@ pub(super) fn stroke(
     path: &BezierPath,
     transform: Transform,
     thickness: f32,
-    color: Color,
+    color: AlphaColor<Srgb>,
     cap: Cap,
 ) {
     // square corners stay square instead of being rounded off by the line
@@ -52,7 +58,7 @@ pub(super) fn rectangle(
     area: Area,
     radius: Corners,
     transform: Transform,
-    color: Color,
+    color: AlphaColor<Srgb>,
 ) {
     let Some(path) = area.trace(radius) else {
         return;
@@ -67,7 +73,7 @@ pub(super) fn border(
     radius: Corners,
     thickness: f32,
     transform: Transform,
-    color: Color,
+    color: AlphaColor<Srgb>,
 ) {
     /*
      * a line is drawn centered on its path,

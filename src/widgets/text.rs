@@ -1,9 +1,10 @@
 mod lines;
 
+use color::{AlphaColor, Srgb};
 use swash::FontRef;
 
 use crate::graphics::{Area, Renderer, font};
-use crate::{Color, Size, Weight};
+use crate::{Size, Weight};
 
 use super::Widget;
 
@@ -12,7 +13,7 @@ use lines::Rules;
 pub struct Text {
     content: String,
     size: f32,
-    color: Color,
+    color: AlphaColor<Srgb>,
     font: Option<String>,
     weight: Weight,
     rules: Rules,
@@ -27,7 +28,7 @@ impl Text {
         Self {
             content: content.into(),
             size: 16.0,
-            color: Color::BLACK,
+            color: AlphaColor::BLACK,
             font: None,
             weight: Weight::Regular,
             rules: Rules::default(),
@@ -42,7 +43,7 @@ impl Text {
         self
     }
 
-    pub fn color(mut self, color: Color) -> Self {
+    pub fn color(mut self, color: AlphaColor<Srgb>) -> Self {
         self.color = color;
 
         self

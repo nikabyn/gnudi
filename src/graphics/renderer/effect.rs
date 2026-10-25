@@ -1,6 +1,8 @@
 use std::path::Path;
 
-use crate::graphics::{Area, Color, Corners, Renderer};
+use color::{AlphaColor, Srgb};
+
+use crate::graphics::{Area, Corners, Renderer};
 
 use super::Command;
 
@@ -8,7 +10,7 @@ use super::Command;
 pub const VALUE_ROWS: usize = 16;
 
 impl Renderer {
-    pub fn shadow(&mut self, area: Area, radius: Corners, color: Color, blur: f32) {
+    pub fn shadow(&mut self, area: Area, radius: Corners, color: AlphaColor<Srgb>, blur: f32) {
         self.commands.push(Command::Shadow {
             area,
             radius,
@@ -24,7 +26,7 @@ impl Renderer {
         area: Area,
         hole: Area,
         radius: Corners,
-        color: Color,
+        color: AlphaColor<Srgb>,
         blur: f32,
     ) {
         let Some(clip) = area.trace(radius) else {
