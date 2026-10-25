@@ -1,20 +1,14 @@
 > [!NOTE]
-> **amane is on hiatus until mid-december 2026.** <br>
-> i'm pausing the project to focus on my college thesis, so issues and PRs are closed for now. <br>
-> everything still works. you can install it, read the [docs](https://mystiafin.github.io/amane/), and fork it. thanks for following along, i'll be back once my thesis is done. <br>
-> but i daily drive my own shell built with this, so if something annoys me enough, i might push a fix. not guaranteed though.
+> **Hard fork of amane** <br>
+> This is a hard fork of amane because Im missing a bunch of stuff (tabular numeric font variations, ext_background_effect, ...)
+> and the project is currently paused.
+> Ill update the rest of the README when I get around to it.
 
 <p align="center">
   <img src="amane.svg" alt="amane logo" width="128">
 </p>
 
 <h1 align="center">amane</h1>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/version-0.1.2-de7979" alt="version 0.1.2">
-  <img src="https://img.shields.io/badge/status-experimental-7c1f1f" alt="status: experimental">
-  <img src="https://img.shields.io/badge/rust-2024_edition-16151d?logo=rust&logoColor=white" alt="rust 2024 edition">
-</p>
 
 Amane is a Rust library for building Wayland desktop shells, like bars, panels and launchers. You write your shell in plain Rust, and the `amane` CLI builds and runs it for you. And it's 🚀⚡️BBLAAAZZINGGLYY FAST⚡️🚀 (so funny)
 
