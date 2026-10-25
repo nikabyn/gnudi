@@ -2,21 +2,22 @@
 > **Hard fork of amane** <br>
 > This is a hard fork of amane because Im missing a bunch of stuff (tabular numeric font variations, ext_background_effect, ...)
 > and the project is currently paused.
+> I intend to remove the cli and focus on purely developing this as a library.
 > Ill update the rest of the README when I get around to it.
 
 <p align="center">
   <img src="amane.svg" alt="amane logo" width="128">
 </p>
 
-<h1 align="center">amane</h1>
+<h1 align="center">gnudi</h1>
 
-Amane is a Rust library for building Wayland desktop shells, like bars, panels and launchers. You write your shell in plain Rust, and the `amane` CLI builds and runs it for you. And it's 🚀⚡️BBLAAAZZINGGLYY FAST⚡️🚀 (so funny)
+Gnudi is a Rust library for building Wayland desktop shells, like bars, panels and launchers.
 
-Keep in mind, Amane is still early (0.1) and experimental, so things will break and change.
+Keep in mind, Gnudi is still early and experimental, so things will break and change.
 
 ## Documentation
 
-The full guide is at [mystiafin.github.io/amane](https://mystiafin.github.io/amane/). It walks you from your first shell through layout, widgets, input and animation, plus the built-in services for audio, network, bluetooth, notifications and workspaces.
+The full guide of Amane is at [mystiafin.github.io/amane](https://mystiafin.github.io/amane/). It walks you from your first shell through layout, widgets, input and animation, plus the built-in services for audio, network, bluetooth, notifications and workspaces. Right now its still very similar to how Gnudi works.
 
 ## Installation
 
