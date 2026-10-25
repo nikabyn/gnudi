@@ -5,9 +5,11 @@
 > I intend to remove the cli and focus on purely developing this as a library.
 > Ill update the rest of the README when I get around to it.
 
+<!--
+TODO create logo
 <p align="center">
   <img src="amane.svg" alt="amane logo" width="128">
-</p>
+</p>-->
 
 <h1 align="center">gnudi</h1>
 
