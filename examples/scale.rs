@@ -1,4 +1,5 @@
-use amane::{
+use color::AlphaColor;
+use gnudi::{
     App, Center, Full, Layer, LayerWindow, Margin, Monitor, Parent, Rectangle, Text, Vertical,
     Window,
 };
@@ -40,7 +41,7 @@ fn bar(monitor: &Monitor) -> LayerWindow {
                         monitor.name, monitor.width, monitor.height
                     ))
                     .size(16.0)
-                    .color("#cdd6f4".into()),
+                    .color(AlphaColor::from_hex("#cdd6f4")),
                 ),
         )
 }
@@ -56,6 +57,10 @@ fn panel() -> Window {
                 .height(Parent)
                 .fill("#313244")
                 .align_child(Center, Center)
-                .child(Text::new("Scaled shell").size(20.0).color("#cdd6f4".into())),
+                .child(
+                    Text::new("Scaled shell")
+                        .size(20.0)
+                        .color(AlphaColor::from_hex("#cdd6f4")),
+                ),
         )
 }

@@ -11,7 +11,7 @@ Amane starts being the daemon the first time something reads `Notifications`, so
 ## A notification list
 
 ```rust
-use amane::{
+use gnudi::{
     App, Column, Horizontal, Layer, LayerWindow, Notification, Notifications, Parent, Rectangle,
     Service, Text, Urgency, Vertical, Widget,
 };

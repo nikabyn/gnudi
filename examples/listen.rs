@@ -1,6 +1,7 @@
 use std::io;
 
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
+use color::AlphaColor;
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
 
 // shows the last line typed into the terminal that started the bar
 struct Typed {
@@ -42,7 +43,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(&typed.line).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(&typed.line).size(20.0).color(AlphaColor::WHITE)),
         )
 }

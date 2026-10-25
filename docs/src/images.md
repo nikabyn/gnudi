@@ -5,7 +5,7 @@ Images are drawn as a rectangle's fill. This page covers fitting them, loading t
 ## An image fill
 
 ```rust
-use amane::{App, Image, LayerWindow, Rectangle};
+use gnudi::{App, Image, LayerWindow, Rectangle};
 
 fn main() {
     App::new().window(view).run();

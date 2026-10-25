@@ -5,7 +5,7 @@
 ## Drawing text
 
 ```rust
-use amane::{App, Color, LayerWindow, Text};
+use gnudi::{App, LayerWindow, Text};
 
 fn main() {
     App::new().window(view).run();
@@ -15,7 +15,7 @@ fn view() -> LayerWindow {
     LayerWindow::new()
         .width(300.0)
         .height(40.0)
-        .child(Text::new("hello").size(20.0).color(Color::WHITE))
+        .child(Text::new("hello").size(20.0).color(AlphaColor::WHITE))
 }
 ```
 
@@ -30,7 +30,7 @@ The defaults are size 16, black, regular weight, and your system's `sans-serif` 
 ## Color
 
 ```rust,ignore
-Text::new("hello").color(Color::WHITE)
+Text::new("hello").color(AlphaColor::WHITE)
 Text::new("hello").color(Color::from("#cdd6f4"))
 ```
 
@@ -97,7 +97,7 @@ Text::new("\u{f240}").font("Symbols Nerd Font").size(18.0).tight()
 ## Example
 
 ```rust
-use amane::{App, Column, LayerWindow, Text, Weight, children};
+use gnudi::{App, Column, LayerWindow, Text, Weight, children};
 
 fn main() {
     App::new().window(view).run();

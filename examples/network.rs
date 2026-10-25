@@ -1,13 +1,14 @@
-use amane::{
-    App, Button, Color, Column, Full, Layer, LayerWindow, Link, Network, Parent, Rectangle, Row,
-    Service, Text, Vertical, Widget, children,
+use color::{AlphaColor, Srgb};
+use gnudi::{
+    App, Button, Column, Full, Layer, LayerWindow, Link, Network, Parent, Rectangle, Row, Service,
+    Text, Vertical, Widget, children,
 };
 
-const BACKGROUND: Color = Color::rgb(0x1e, 0x1e, 0x2e);
+const BACKGROUND: AlphaColor<Srgb> = AlphaColor::from_rgb8(0x1e, 0x1e, 0x2e);
 
-const BUTTON: Color = Color::rgb(0x31, 0x32, 0x44);
+const BUTTON: AlphaColor<Srgb> = AlphaColor::from_rgb8(0x31, 0x32, 0x44);
 
-const FOREGROUND: Color = Color::rgb(0xcd, 0xd6, 0xf4);
+const FOREGROUND: AlphaColor<Srgb> = AlphaColor::from_rgb8(0xcd, 0xd6, 0xf4);
 
 // put a password here to join a new secured network, saved ones already have theirs
 const PASSWORD: Option<&str> = None;

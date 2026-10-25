@@ -1,6 +1,7 @@
 use std::fs;
 
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
+use color::AlphaColor;
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
 
 // try `echo hello > /tmp/amane-note` while the bar is running
 const NOTE: &str = "/tmp/amane-note";
@@ -15,7 +16,7 @@ impl Service for Note {
     }
 
     fn listen() {
-        for _ in amane::watch_file(NOTE) {
+        for _ in gnudi::watch_file(NOTE) {
             let text = read_note();
 
             Self::write().text = text;
@@ -47,7 +48,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(&note.text).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(&note.text).size(20.0).color(AlphaColor::WHITE)),
         )
 }

@@ -2,7 +2,8 @@ use std::f32::consts::TAU;
 use std::sync::LazyLock;
 use std::time::Instant;
 
-use amane::{App, Color, Full, LayerWindow, Rectangle};
+use color::AlphaColor;
+use gnudi::{App, Full, LayerWindow, Rectangle};
 
 // a dot that swings back and forth forever, moved by the example itself instead of an Animation
 static START: LazyLock<Instant> = LazyLock::new(Instant::now);
@@ -20,7 +21,7 @@ fn view() -> LayerWindow {
     let x = 170.0 + swing * 150.0;
 
     // it never arrives, so it always wants the next frame
-    amane::request_frame();
+    gnudi::request_frame();
 
     LayerWindow::new().width(400.0).height(60.0).child(
         Rectangle::new()
@@ -32,7 +33,7 @@ fn view() -> LayerWindow {
                     .width(60.0)
                     .height(60.0)
                     .radius(Full)
-                    .fill(Color::from("#89b4fa"))
+                    .fill(AlphaColor::from_hex("#89b4fa"))
                     .translate(x, 0.0),
             ),
     )

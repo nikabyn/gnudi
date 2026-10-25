@@ -1,8 +1,9 @@
 use std::time::Duration;
 
-use amane::{
-    Animation, App, Button, Color, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle,
-    Service, Text, Vertical, easing_linear,
+use color::{AlphaColor, Srgb};
+use gnudi::{
+    Animation, App, Button, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle, Service,
+    Text, Vertical, easing_linear,
 };
 
 struct Panel {
@@ -14,7 +15,7 @@ struct Panel {
     fade: Animation,
 
     height: Animation,
-    color: Animation<Color>,
+    color: Animation<AlphaColor<Srgb>>,
 }
 
 impl Service for Panel {
@@ -29,7 +30,7 @@ impl Service for Panel {
             fade: Animation::new(1.0).duration(slow),
 
             height: Animation::new(100.0).easing(easing_linear),
-            color: Animation::new(Color::BLUE),
+            color: Animation::new(color::palette::css::BLUE),
         }
     }
 
@@ -73,7 +74,11 @@ fn view() -> LayerWindow {
                 .fill(panel.color.value())
                 .opacity(opacity)
                 .on_click(panel_clicked)
-                .child(Text::new("click to resize").size(20.0).color(Color::WHITE)),
+                .child(
+                    Text::new("click to resize")
+                        .size(20.0)
+                        .color(AlphaColor::WHITE),
+                ),
         )
 }
 
@@ -83,9 +88,9 @@ fn panel_clicked(_: Button) {
     panel.tall = !panel.tall;
 
     let (height, color) = if panel.tall {
-        (400.0, Color::from("#8839ef"))
+        (400.0, AlphaColor::try_from_hex("#8839ef").unwrap())
     } else {
-        (100.0, Color::BLUE)
+        (100.0, color::palette::css::BLUE)
     };
 
     panel.height.to(height);

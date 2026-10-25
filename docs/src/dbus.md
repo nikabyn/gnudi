@@ -16,7 +16,7 @@ There's one connection per bus for the whole shell, shared by every thread. If a
 ```rust
 use std::time::Duration;
 
-use amane::{App, Bus, Full, LayerWindow, Service, Text};
+use gnudi::{App, Bus, Full, LayerWindow, Service, Text};
 
 struct Wifi {
     enabled: bool,
@@ -149,7 +149,7 @@ Each `Signal` has `sender()`, `path()`, and `arguments()`. `sender()` is the sen
 Your shell can offer its own D-Bus interface, so other programs can call it:
 
 ```rust
-use amane::{App, Bus, LayerWindow, Service, Text, arguments};
+use gnudi::{App, Bus, LayerWindow, Service, Text, arguments};
 
 struct Server;
 

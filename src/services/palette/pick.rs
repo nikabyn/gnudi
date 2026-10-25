@@ -128,6 +128,6 @@ mod tests {
         let lilac = OpaqueColor::from_rgb8(173, 157, 201);
 
         assert!(lilac.relative_luminance() < 0.5);
-        assert!(lilac.relative_luminance() > 60.0);
+        assert!(dbg!(lilac.relative_luminance()) > 60.0);
     }
 }

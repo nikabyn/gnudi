@@ -1,4 +1,4 @@
-use amane::{App, Color, LayerWindow, Parent, Rectangle, Row, children};
+use gnudi::{App, LayerWindow, Parent, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();
@@ -13,6 +13,6 @@ fn view() -> LayerWindow {
                 .width(Parent)
                 .height(Parent)
                 .radius(20.0)
-                .fill(Color::RED)
+                .fill(color::palette::css::RED)
         ]))
 }

@@ -1,7 +1,8 @@
 use std::env;
 
-use amane::{
-    App, Center, Color, Full, Layer, LayerWindow, Palette, Parent, Rectangle, Row, Service, Text,
+use color::{OpaqueColor, Srgb};
+use gnudi::{
+    App, Center, Full, Layer, LayerWindow, Palette, Parent, Rectangle, Row, Service, Text,
     Vertical, Widget,
 };
 
@@ -16,7 +17,7 @@ fn main() {
     Palette::write().open(&image, 16);
 
     for color in Palette::read().colors() {
-        println!("{}", color.hex());
+        println!("#{:08x}", color.to_rgba8().to_u32());
     }
 
     App::new().window(view).run();
@@ -32,16 +33,20 @@ fn view() -> LayerWindow {
     }
 
     let label = format!(
-        "accent {}  background {}",
-        palette.accent().hex(),
-        palette.background().hex()
+        "accent #{:08x}  background #{:08x}",
+        palette.accent().to_rgba8().to_u32(),
+        palette.background().to_rgba8().to_u32()
     );
 
     let accent = Rectangle::new()
         .width(260.0)
         .height(Parent)
         .fill(palette.accent())
-        .child(Text::new(&label).size(14.0).color(palette.on_accent()));
+        .child(
+            Text::new(&label)
+                .size(14.0)
+                .color(palette.on_accent().with_alpha(1.0)),
+        );
 
     swatches.push(Box::new(accent));
 
@@ -59,6 +64,6 @@ fn view() -> LayerWindow {
         )
 }
 
-fn swatch(color: Color) -> Rectangle {
+fn swatch(color: OpaqueColor<Srgb>) -> Rectangle {
     Rectangle::new().width(40.0).height(Parent).fill(color)
 }

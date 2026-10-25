@@ -1,6 +1,6 @@
-use amane::{
-    App, Center, Color, Full, LayerWindow, Parent, Pointer, Rectangle, Text, Vertical, Window,
-    spawn,
+use color::AlphaColor;
+use gnudi::{
+    App, Center, Full, LayerWindow, Parent, Pointer, Rectangle, Text, Vertical, Window, spawn,
 };
 
 // a bar on top, and a normal window beside it like a settings app would have
@@ -37,6 +37,10 @@ fn settings() -> Window {
                 .height(Parent)
                 .fill("#313244")
                 .align_child(Center, Center)
-                .child(Text::new("settings go here").size(20.0).color(Color::WHITE)),
+                .child(
+                    Text::new("settings go here")
+                        .size(20.0)
+                        .color(AlphaColor::WHITE),
+                ),
         )
 }

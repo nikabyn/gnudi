@@ -7,7 +7,7 @@ It polls once a second, because players don't announce their position while a tr
 ## A now-playing widget
 
 ```rust
-use amane::{App, Button, Full, LayerWindow, Media, Parent, Rectangle, Row, Service, Text, children};
+use gnudi::{App, Button, Full, LayerWindow, Media, Parent, Rectangle, Row, Service, Text, children};
 
 fn main() {
     App::new().window(view).run();
@@ -77,7 +77,7 @@ To show the cover art, strip the `file://` from `art_url()` and use it as an ima
 `players()` lists every open player, in the same order on every poll, and `active()` gives the active one, or `None` when no player is open. Each `MediaPlayer` has the same functions as above, plus `identity()` (its display name, like "Spotify"), `name()` (its D-Bus name), and its own `play_pause()`, `next()`, and `previous()`:
 
 ```rust
-use amane::{App, Column, Full, LayerWindow, Media, MediaPlayer, Parent, Rectangle, Service, Text, Widget};
+use gnudi::{App, Column, Full, LayerWindow, Media, MediaPlayer, Parent, Rectangle, Service, Text, Widget};
 
 fn main() {
     App::new().window(view).run();

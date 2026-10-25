@@ -7,7 +7,7 @@ This page explains when a view runs, and the one rule that follows from that.
 ## A view with live data
 
 ```rust
-use amane::{App, Battery, Full, LayerWindow, Service, Text};
+use gnudi::{App, Battery, Full, LayerWindow, Service, Text};
 
 fn main() {
     App::new().window(view).run();
@@ -67,7 +67,7 @@ Slow work goes in a Service's own thread instead. The view then reads the result
 You can split a view into helper functions freely:
 
 ```rust
-use amane::{App, Color, Full, LayerWindow, Parent, Rectangle, Row, Text, children};
+use gnudi::{App, Full, LayerWindow, Parent, Rectangle, Row, Text, children};
 
 fn main() {
     App::new().window(view).run();
@@ -85,7 +85,7 @@ fn label(content: &str) -> Rectangle {
         .width(Parent)
         .height(Parent)
         .fill(Color::BLACK)
-        .child(Text::new(content).color(Color::WHITE))
+        .child(Text::new(content).color(AlphaColor::WHITE))
 }
 ```
 

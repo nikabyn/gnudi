@@ -1,6 +1,5 @@
-use amane::{
-    App, Bus, Color, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical,
-};
+use color::AlphaColor;
+use gnudi::{App, Bus, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
 
 const NETWORK_MANAGER: &str = "/org/freedesktop/NetworkManager";
 
@@ -63,7 +62,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(label).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(label).size(20.0).color(AlphaColor::WHITE)),
         )
 }

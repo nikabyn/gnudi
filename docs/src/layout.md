@@ -7,7 +7,7 @@ This page covers how widgets get their size and position: `Size`, `Row`, `Column
 ## Fixed and stretching widgets
 
 ```rust
-use amane::{App, Color, Full, LayerWindow, Parent, Rectangle, Row, children};
+use gnudi::{App, Full, LayerWindow, Parent, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();
@@ -18,9 +18,9 @@ fn view() -> LayerWindow {
         .width(Full)
         .height(30.0)
         .child(Row::new(children![
-            Rectangle::new().width(100.0).height(Parent).fill(Color::RED),
-            Rectangle::new().width(Parent).height(Parent).fill(Color::GREEN),
-            Rectangle::new().width(100.0).height(Parent).fill(Color::BLUE),
+            Rectangle::new().width(100.0).height(Parent).fill(color::palette::css::RED),
+            Rectangle::new().width(Parent).height(Parent).fill(color::palette::css::GREEN),
+            Rectangle::new().width(100.0).height(Parent).fill(color::palette::css::BLUE),
         ]))
 }
 ```
@@ -55,7 +55,7 @@ Row::new(children![
 When you build the list in a loop, box each widget yourself:
 
 ```rust
-use amane::{App, Column, LayerWindow, Text, Widget};
+use gnudi::{App, Column, LayerWindow, Text, Widget};
 
 fn main() {
     App::new().window(view).run();
@@ -85,7 +85,7 @@ fn view() -> LayerWindow {
 `Stack` is for layering, like a badge on top of a card. Each child starts at the stack's top-left corner. Move one with `translate` ([Rectangle](rectangle.md)):
 
 ```rust
-use amane::{App, Center, Color, Full, LayerWindow, Rectangle, Stack, Text, children};
+use gnudi::{App, Center, Full, LayerWindow, Rectangle, Stack, Text, children};
 
 fn main() {
     App::new().window(view).run();
@@ -166,7 +166,7 @@ It takes `Start`, `Center`, or `End`. The default is `Start`: the top of a row, 
 A `Rectangle` holds one child. `padding` keeps space between its edges and the child, and `align_child` places the child inside that space:
 
 ```rust
-use amane::{App, Center, Color, End, LayerWindow, Padding, Parent, Rectangle};
+use gnudi::{App, Center, End, LayerWindow, Padding, Parent, Rectangle};
 
 fn main() {
     App::new().window(view).run();
@@ -180,7 +180,7 @@ fn view() -> LayerWindow {
             .fill(Color::BLACK)
             .padding(Padding { top: 8.0, right: 16.0, bottom: 8.0, left: 16.0 })
             .align_child(End, Center)
-            .child(Rectangle::new().width(40.0).height(40.0).fill(Color::RED)),
+            .child(Rectangle::new().width(40.0).height(40.0).fill(color::palette::css::RED)),
     )
 }
 ```
@@ -193,8 +193,8 @@ fn view() -> LayerWindow {
 Left, center, and right sections, with the center always in the middle of the bar:
 
 ```rust
-use amane::{
-    Align, App, Center, Color, End, Full, LayerWindow, Parent, Rectangle, Row, Start, Text,
+use gnudi::{
+    Align, App, Center, End, Full, LayerWindow, Parent, Rectangle, Row, Start, Text,
     children,
 };
 
@@ -207,9 +207,9 @@ fn view() -> LayerWindow {
         .width(Full)
         .height(30.0)
         .child(Row::new(children![
-            section(Text::new("workspaces").color(Color::WHITE), Start),
-            section(Text::new("12:00").color(Color::WHITE), Center),
-            section(Text::new("battery").color(Color::WHITE), End),
+            section(Text::new("workspaces").color(AlphaColor::WHITE), Start),
+            section(Text::new("12:00").color(AlphaColor::WHITE), Center),
+            section(Text::new("battery").color(AlphaColor::WHITE), End),
         ]))
 }
 

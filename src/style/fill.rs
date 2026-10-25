@@ -1,4 +1,4 @@
-use color::{AlphaColor, Srgb};
+use color::{AlphaColor, OpaqueColor, Srgb};
 
 use crate::{Gradient, Image};
 
@@ -16,18 +16,22 @@ pub enum Fill {
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Mask;
 
+impl From<OpaqueColor<Srgb>> for Fill {
+    fn from(color: OpaqueColor<Srgb>) -> Self {
+        Self::Color(color.with_alpha(1.0))
+    }
+}
+
 impl From<AlphaColor<Srgb>> for Fill {
     fn from(color: AlphaColor<Srgb>) -> Self {
         Self::Color(color)
     }
 }
 
-impl TryFrom<&str> for Fill {
-    type Error = color::ParseError;
-
+impl From<&str> for Fill {
     /// a string is a hex color like "#1e1e2e"
-    fn try_from(hex: &str) -> Result<Self, Self::Error> {
-        AlphaColor::try_from_hex(hex).map(Self::Color)
+    fn from(hex: &str) -> Self {
+        Self::Color(AlphaColor::from_hex(hex))
     }
 }
 

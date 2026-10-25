@@ -1,4 +1,5 @@
-use amane::{App, Image, LayerWindow, Parent, Rectangle, Row, children};
+use color::AlphaColor;
+use gnudi::{App, Image, LayerWindow, Parent, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();
@@ -22,7 +23,7 @@ fn view() -> LayerWindow {
                 .width(200.0)
                 .height(Parent)
                 .radius(20.0)
-                .border(4.0, "#ffffff")
+                .border(4.0, AlphaColor::WHITE)
                 .fill(Image::stretch("examples/wallpaper.png")),
         ]))
 }

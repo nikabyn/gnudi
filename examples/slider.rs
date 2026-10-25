@@ -1,6 +1,7 @@
 use std::cell::Cell;
 
-use amane::{App, Color, LayerWindow, Point, Rectangle};
+use color::AlphaColor;
+use gnudi::{App, LayerWindow, Point, Rectangle};
 
 const TRACK_WIDTH: f32 = 300.0;
 const TRACK_HEIGHT: f32 = 24.0;
@@ -20,13 +21,13 @@ fn view() -> LayerWindow {
     let fill = Rectangle::new()
         .width(filled)
         .height(TRACK_HEIGHT)
-        .fill(Color::from("#3b82f6"));
+        .fill(AlphaColor::from_hex("#3b82f6"));
 
     let track = Rectangle::new()
         .width(TRACK_WIDTH)
         .height(TRACK_HEIGHT)
         .radius(TRACK_HEIGHT / 2.0)
-        .fill(Color::from("#e8e8e8"))
+        .fill(AlphaColor::from_hex("#e8e8e8"))
         .clip()
         .child(fill)
         .on_drag(slide);

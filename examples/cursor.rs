@@ -1,6 +1,7 @@
-use amane::{
-    App, Color, Grab, Keyboard, LayerWindow, NotAllowed, Parent, Pointer, Rectangle,
-    ResizeHorizontal, Row, TextInput, children,
+use color::AlphaColor;
+use gnudi::{
+    App, Grab, Keyboard, LayerWindow, NotAllowed, Parent, Pointer, Rectangle, ResizeHorizontal,
+    Row, TextInput, children,
 };
 
 fn main() {
@@ -16,28 +17,28 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::RED)
+                .fill(color::palette::css::RED)
                 .cursor(Pointer),
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::GREEN)
+                .fill(color::palette::css::GREEN)
                 .cursor(Grab),
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
+                .fill(color::palette::css::BLUE)
                 .cursor(ResizeHorizontal),
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLACK)
+                .fill(AlphaColor::BLACK)
                 .cursor(NotAllowed),
             // a text input shows the text cursor on its own
             Rectangle::new()
                 .width(150.0)
                 .height(Parent)
-                .fill(Color::WHITE)
+                .fill(AlphaColor::WHITE)
                 .child(TextInput::new("cursor").width(150.0))
         ]))
 }

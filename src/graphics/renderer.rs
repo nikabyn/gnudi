@@ -97,14 +97,14 @@ impl Renderer {
 mod tests {
     use super::*;
     use crate::scale::ScaleFactor;
-    use crate::{Color, Parent, Rectangle};
+    use crate::{Parent, Rectangle};
 
     #[test]
     fn frames_combine_global_and_output_scales_in_drawing() {
         let root = Rectangle::new()
             .width(Parent)
             .height(Parent)
-            .fill(Color::BLUE);
+            .fill(color::palette::css::BLUE);
         let frame = crate::frame::build(&root, 300, 150, 1.25, ScaleFactor::new(1.5));
         let commands = frame.renderer.finish();
         let Command::Rectangle {

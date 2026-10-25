@@ -53,7 +53,7 @@ amane compile && amane clean --yes
 mod bar;
 mod clock;
 
-use amane::App;
+use gnudi::App;
 
 fn main() {
     App::new().window(bar::view).run();
@@ -83,4 +83,4 @@ Most of what a shell needs is in the library already:
 - running commands and reading their output, through [Commands and Files](processes.md)
 - file watching, D-Bus, and IPC
 
-For anything else, like the current time, run a command with `amane::output` (for example `date +%H:%M`).
+For anything else, like the current time, run a command with `gnudi::output` (for example `date +%H:%M`).

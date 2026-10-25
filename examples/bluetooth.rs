@@ -1,6 +1,7 @@
-use amane::{
-    App, Bluetooth, BluetoothDevice, Color, Column, Layer, LayerWindow, Parent, Rectangle, Service,
-    Text, Widget,
+use color::AlphaColor;
+use gnudi::{
+    App, Bluetooth, BluetoothDevice, Column, Layer, LayerWindow, Parent, Rectangle, Service, Text,
+    Widget,
 };
 
 // click the top line to turn bluetooth on or off, click a device to connect or disconnect it
@@ -29,9 +30,9 @@ fn view() -> LayerWindow {
         Rectangle::new()
             .width(Parent)
             .height(30.0)
-            .fill(Color::BLUE)
+            .fill(color::palette::css::BLUE)
             .on_click(move |_| Bluetooth::set_powered(!powered))
-            .child(Text::new(status).size(16.0).color(Color::WHITE)),
+            .child(Text::new(status).size(16.0).color(AlphaColor::WHITE)),
     ));
 
     for device in bluetooth.devices() {
@@ -66,7 +67,7 @@ fn device_row(device: &BluetoothDevice) -> Rectangle {
     Rectangle::new()
         .width(Parent)
         .height(30.0)
-        .fill(Color::BLACK)
+        .fill(AlphaColor::BLACK)
         .on_click(move |_| {
             if connected {
                 Bluetooth::disconnect(&path);
@@ -76,5 +77,5 @@ fn device_row(device: &BluetoothDevice) -> Rectangle {
                 Bluetooth::pair(&path);
             }
         })
-        .child(Text::new(&label).size(14.0).color(Color::WHITE))
+        .child(Text::new(&label).size(14.0).color(AlphaColor::WHITE))
 }

@@ -1,4 +1,4 @@
-use amane::{App, Color, LayerWindow, Pointer, Rectangle, Row, children};
+use gnudi::{App, LayerWindow, Pointer, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();
@@ -13,7 +13,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(160.0)
                 .height(160.0)
-                .fill(Color::RED)
+                .fill(color::palette::css::RED)
                 .rotate(30.0)
                 .scale(0.6)
                 .cursor(Pointer)
@@ -21,12 +21,12 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(160.0)
                 .height(160.0)
-                .fill(Color::GREEN)
+                .fill(color::palette::css::GREEN)
                 .scale(0.5),
             Rectangle::new()
                 .width(160.0)
                 .height(160.0)
-                .fill(Color::BLUE)
+                .fill(color::palette::css::BLUE)
                 .scale(0.5)
                 .translate(20.0, -30.0)
         ]))

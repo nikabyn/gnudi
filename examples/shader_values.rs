@@ -1,6 +1,6 @@
 use std::time::Duration;
 
-use amane::{App, Button, LayerWindow, Rectangle, Service};
+use gnudi::{App, Button, LayerWindow, Rectangle, Service};
 
 // click anywhere to add a spot, the shader draws every spot it is handed
 fn main() {

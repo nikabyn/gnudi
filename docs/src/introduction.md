@@ -5,7 +5,7 @@ Amane is a Rust library for building your own Wayland desktop shell: bars, panel
 Here's a complete bar:
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
 
 fn main() {
     App::new().window(view).run();
@@ -21,8 +21,8 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new("Amane bar").size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new("Amane bar").size(20.0).color(AlphaColor::WHITE)),
         )
 }
 ```

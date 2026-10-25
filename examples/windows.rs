@@ -1,5 +1,6 @@
-use amane::{
-    App, Color, Full, Horizontal, Layer, LayerWindow, Monitor, Parent, Rectangle, Text, Vertical,
+use color::AlphaColor;
+use gnudi::{
+    App, Full, Horizontal, Layer, LayerWindow, Monitor, Parent, Rectangle, Text, Vertical,
 };
 
 fn main() {
@@ -19,8 +20,8 @@ fn bar(monitor: &Monitor) -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(label).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(label).size(20.0).color(AlphaColor::WHITE)),
         )
 }
 
@@ -36,7 +37,11 @@ fn corner() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLACK)
-                .child(Text::new("second window").size(18.0).color(Color::WHITE)),
+                .fill(AlphaColor::BLACK)
+                .child(
+                    Text::new("second window")
+                        .size(18.0)
+                        .color(AlphaColor::WHITE),
+                ),
         )
 }

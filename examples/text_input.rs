@@ -1,4 +1,5 @@
-use amane::{App, Color, Column, Keyboard, LayerWindow, Rectangle, TextInput, children};
+use color::AlphaColor;
+use gnudi::{App, Column, Keyboard, LayerWindow, Rectangle, TextInput, children};
 
 fn main() {
     App::new().window(view).run();
@@ -14,7 +15,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(320.0)
                 .height(40.0)
-                .fill(Color::WHITE)
+                .fill(AlphaColor::WHITE)
                 .child(
                     TextInput::new("name")
                         .size(20.0)
@@ -25,7 +26,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(320.0)
                 .height(40.0)
-                .fill(Color::rgb(230, 230, 230))
+                .fill(AlphaColor::from_rgb8(230, 230, 230))
                 .child(
                     TextInput::new("password")
                         .size(20.0)

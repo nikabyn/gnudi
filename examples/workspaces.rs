@@ -1,5 +1,6 @@
-use amane::{
-    App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Row, Service, Text, Vertical, Widget,
+use color::AlphaColor;
+use gnudi::{
+    App, Full, Layer, LayerWindow, Parent, Rectangle, Row, Service, Text, Vertical, Widget,
     Workspace, Workspaces,
 };
 
@@ -26,11 +27,11 @@ fn view() -> LayerWindow {
 
 fn workspace_button(workspace: &Workspace) -> Rectangle {
     let fill = if workspace.focused() {
-        Color::BLUE
+        color::palette::css::BLUE
     } else if workspace.urgent() {
-        Color::RED
+        color::palette::css::RED
     } else {
-        Color::BLACK
+        AlphaColor::BLACK
     };
 
     let id = workspace.id();
@@ -42,5 +43,5 @@ fn workspace_button(workspace: &Workspace) -> Rectangle {
         .height(Parent)
         .fill(fill)
         .on_click(move |_| Workspaces::focus(id))
-        .child(Text::new(&label).size(20.0).color(Color::WHITE))
+        .child(Text::new(&label).size(20.0).color(AlphaColor::WHITE))
 }

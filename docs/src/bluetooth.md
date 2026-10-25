@@ -7,7 +7,7 @@ It polls every 2 seconds.
 ## A device list
 
 ```rust
-use amane::{App, Bluetooth, BluetoothDevice, Column, LayerWindow, Parent, Rectangle, Service, Text, Widget};
+use gnudi::{App, Bluetooth, BluetoothDevice, Column, LayerWindow, Parent, Rectangle, Service, Text, Widget};
 
 fn main() {
     Bluetooth::start_scan();

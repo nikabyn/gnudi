@@ -1,11 +1,12 @@
-use amane::{
-    App, Center, Color, Column, LayerWindow, Lock, Monitor, Parent, Rectangle, Service, Text,
-    TextInput, children,
+use color::{AlphaColor, Srgb};
+use gnudi::{
+    App, Center, Column, LayerWindow, Lock, Monitor, Parent, Rectangle, Service, Text, TextInput,
+    children,
 };
 
-const BACKGROUND: Color = Color::rgb(0x1e, 0x1e, 0x2e);
+const BACKGROUND: AlphaColor<Srgb> = AlphaColor::from_rgb8(0x1e, 0x1e, 0x2e);
 
-const FOREGROUND: Color = Color::rgb(0xcd, 0xd6, 0xf4);
+const FOREGROUND: AlphaColor<Srgb> = AlphaColor::from_rgb8(0xcd, 0xd6, 0xf4);
 
 /*
  * locks the session right away: click the box, type your password, press enter;
@@ -41,7 +42,7 @@ fn view(_: &Monitor) -> LayerWindow {
                     Rectangle::new()
                         .width(300.0)
                         .height(40.0)
-                        .fill(Color::WHITE)
+                        .fill(AlphaColor::WHITE)
                         .padding(8.0)
                         .child(
                             TextInput::new("password")

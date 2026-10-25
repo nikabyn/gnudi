@@ -9,7 +9,7 @@ This page shows how to read a Service, how to write your own, and the rules for 
 ```rust
 use std::time::Duration;
 
-use amane::{App, Full, LayerWindow, Service, Text};
+use gnudi::{App, Full, LayerWindow, Service, Text};
 
 struct Clock {
     time: String,
@@ -17,7 +17,7 @@ struct Clock {
 
 impl Service for Clock {
     fn new() -> Self {
-        Self { time: amane::output("date +%H:%M:%S") }
+        Self { time: gnudi::output("date +%H:%M:%S") }
     }
 
     fn interval() -> Duration {
@@ -25,7 +25,7 @@ impl Service for Clock {
     }
 
     fn update(&mut self) -> bool {
-        let time = amane::output("date +%H:%M:%S");
+        let time = gnudi::output("date +%H:%M:%S");
 
         let changed = time != self.time;
 
@@ -49,7 +49,7 @@ fn view() -> LayerWindow {
 }
 ```
 
-`std::time::Duration` comes from Rust's standard library. `amane::output` runs a shell command and returns what it printed ([Commands and Files](processes.md)).
+`std::time::Duration` comes from Rust's standard library. `gnudi::output` runs a shell command and returns what it printed ([Commands and Files](processes.md)).
 
 ## How a Service updates
 
@@ -89,7 +89,7 @@ Many Services don't poll anything. A menu's open state, a counter, or a selected
 ```rust
 use std::time::Duration;
 
-use amane::{App, Button, LayerWindow, Parent, Rectangle, Service, Text};
+use gnudi::{App, Button, LayerWindow, Parent, Rectangle, Service, Text};
 
 struct Counter {
     count: i32,
@@ -135,7 +135,7 @@ fn clicked(_: Button) {
 Some data announces its own changes: a command that streams events, a file being saved, a D-Bus signal. Polling those wastes time and adds delay. Replace `listen` instead:
 
 ```rust
-use amane::{App, Full, LayerWindow, Service, Text};
+use gnudi::{App, Full, LayerWindow, Service, Text};
 
 struct Niri {
     event: String,
@@ -147,7 +147,7 @@ impl Service for Niri {
     }
 
     fn listen() {
-        for line in amane::lines("niri msg event-stream") {
+        for line in gnudi::lines("niri msg event-stream") {
             Self::write().event = line;
         }
     }

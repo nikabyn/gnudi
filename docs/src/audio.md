@@ -9,7 +9,7 @@ It doesn't poll. The sound server announces every change, so the bar updates as 
 Scroll to change the volume, click to mute:
 
 ```rust
-use amane::{App, Audio, Button, LayerWindow, Parent, Rectangle, Scroll, Service, Text};
+use gnudi::{App, Audio, Button, LayerWindow, Parent, Rectangle, Scroll, Service, Text};
 
 fn main() {
     App::new().window(view).run();

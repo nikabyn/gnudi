@@ -1,4 +1,5 @@
-use amane::{
+use color::AlphaColor;
+use gnudi::{
     App, Arc, Canvas, Cap, Circle, LayerWindow, Line, Parent, Path, Rectangle, Row, Shape,
     children, shapes,
 };
@@ -32,12 +33,15 @@ fn gap() -> Rectangle {
 // a progress ring, value goes from 0 to 1
 fn ring(value: f32) -> Canvas {
     Canvas::new().width(120.0).height(200.0).shapes(shapes![
-        Arc::new().stroke(10.0, "#45475a"),
+        Arc::new().stroke(10.0, AlphaColor::from_hex("#45475a")),
         Arc::new()
             .sweep(360.0 * value)
-            .stroke(10.0, "#89b4fa")
+            .stroke(10.0, AlphaColor::from_hex("#89b4fa"))
             .cap(Cap::Round),
-        Circle::new().radius(40.0).fill("#89b4fa").opacity(0.3),
+        Circle::new()
+            .radius(40.0)
+            .fill(AlphaColor::from_hex("#89b4fa"))
+            .opacity(0.3),
     ])
 }
 
@@ -57,11 +61,12 @@ fn wave(progress: f32, phase: f32) -> Canvas {
     }
 
     Canvas::new().width(width).height(200.0).shapes(shapes![
-        line.stroke(4.0, "#a6e3a1").cap(Cap::Round),
+        line.stroke(4.0, AlphaColor::from_hex("#a6e3a1"))
+            .cap(Cap::Round),
         Line::new()
             .from(end + 8.0, middle)
             .to(width, middle)
-            .stroke(4.0, "#45475a")
+            .stroke(4.0, AlphaColor::from_hex("#45475a"))
             .cap(Cap::Round),
     ])
 }
@@ -86,10 +91,10 @@ fn spirograph() -> Canvas {
         line = line.line_to(x, y);
     }
 
-    Canvas::new()
-        .width(200.0)
-        .height(200.0)
-        .shapes(shapes![line.stroke(1.5, "#cba6f7").opacity(0.8)])
+    Canvas::new().width(200.0).height(200.0).shapes(shapes![
+        line.stroke(1.5, AlphaColor::from_hex("#cba6f7"))
+            .opacity(0.8)
+    ])
 }
 
 // a half circle gauge with a needle
@@ -105,23 +110,23 @@ fn gauge(value: f32) -> Canvas {
             .radius(48.0)
             .start(-90.0)
             .sweep(180.0)
-            .stroke(8.0, "#45475a")
+            .stroke(8.0, AlphaColor::from_hex("#45475a"))
             .cap(Cap::Round),
         Arc::new()
             .center(60.0, 120.0)
             .radius(48.0)
             .start(-90.0)
             .sweep(180.0 * value)
-            .stroke(8.0, "#f9e2af")
+            .stroke(8.0, AlphaColor::from_hex("#f9e2af"))
             .cap(Cap::Round),
         Line::new()
             .from(60.0, 120.0)
             .to(needle_x, needle_y)
-            .stroke(3.0, "#cdd6f4")
+            .stroke(3.0, AlphaColor::from_hex("#cdd6f4"))
             .cap(Cap::Round),
         Circle::new()
             .center(60.0, 120.0)
             .radius(6.0)
-            .fill("#cdd6f4"),
+            .fill(AlphaColor::from_hex("#cdd6f4")),
     ])
 }

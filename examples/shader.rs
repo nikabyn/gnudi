@@ -1,4 +1,4 @@
-use amane::{App, LayerWindow, Rectangle, Row, children};
+use gnudi::{App, LayerWindow, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();

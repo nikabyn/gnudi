@@ -133,7 +133,7 @@ mod tests {
         let root = Rectangle::new()
             .width(Parent)
             .height(Parent)
-            .fill(crate::Color::BLUE);
+            .fill(color::palette::css::BLUE);
         let frame = build(&root, 300, 150, 1.25, ScaleFactor::new(1.5));
 
         assert_eq!(frame.targets[0].area, Area::new(0.0, 0.0, 200.0, 100.0));

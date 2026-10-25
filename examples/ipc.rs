@@ -1,6 +1,7 @@
 use std::sync::{LazyLock, Mutex};
 
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
+use color::AlphaColor;
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
 
 static MESSAGE: LazyLock<Mutex<String>> =
     LazyLock::new(|| Mutex::new(String::from("run: amane ipc call say hello")));
@@ -32,7 +33,11 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(message.as_str()).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(
+                    Text::new(message.as_str())
+                        .size(20.0)
+                        .color(AlphaColor::WHITE),
+                ),
         )
 }

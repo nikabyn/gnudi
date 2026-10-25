@@ -7,7 +7,7 @@ It polls once a second, because Wi-Fi strength changes all the time without anyt
 ## A connection label
 
 ```rust
-use amane::{App, Full, LayerWindow, Link, Network, Service, Text};
+use gnudi::{App, Full, LayerWindow, Link, Network, Service, Text};
 
 fn main() {
     App::new().window(view).run();
@@ -71,7 +71,7 @@ All of them run on a background thread and return right away. The result shows u
 ## A network list
 
 ```rust
-use amane::{App, Column, LayerWindow, Network, Parent, Rectangle, Service, Text, Widget};
+use gnudi::{App, Column, LayerWindow, Network, Parent, Rectangle, Service, Text, Widget};
 
 fn main() {
     App::new().window(view).run();

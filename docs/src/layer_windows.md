@@ -7,7 +7,7 @@ This page covers each of those settings.
 ## A bar
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Vertical, Zone};
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Vertical, Zone};
 
 fn main() {
     App::new().window(view).run();

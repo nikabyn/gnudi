@@ -1,7 +1,8 @@
 use std::time::Duration;
 
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
 use chrono::Local;
+use color::AlphaColor;
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Service, Text, Vertical};
 
 struct Clock {
     time: String,
@@ -47,7 +48,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(&clock.time).size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(&clock.time).size(20.0).color(AlphaColor::WHITE)),
         )
 }

@@ -5,7 +5,7 @@
 ## A launcher
 
 ```rust
-use amane::{App, Apps, Color, Column, Image, LayerWindow, Pointer, Rectangle, Row, ScrollArea, Service, Text, Widget, children};
+use gnudi::{App, Apps, Column, Image, LayerWindow, Pointer, Rectangle, Row, ScrollArea, Service, Text, Widget, children};
 
 fn main() {
     App::new().window(view).run();
@@ -34,7 +34,7 @@ fn view() -> LayerWindow {
             .on_click(move |_| launched.launch())
             .child(Row::new(children![
                 icon,
-                Text::new(app.name()).size(16.0).color(Color::WHITE),
+                Text::new(app.name()).size(16.0).color(AlphaColor::WHITE),
             ]));
 
         rows.push(Box::new(row));

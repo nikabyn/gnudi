@@ -7,7 +7,7 @@ The `Pam` Service runs a PAM conversation on a background thread. It exposes eac
 Call `start` from an input handler or another thread:
 
 ```rust,ignore
-use amane::{Pam, PamConfig};
+use gnudi::{Pam, PamConfig};
 
 Pam::start(PamConfig::new("login"))?;
 ```
@@ -38,7 +38,7 @@ Read `Pam` in a view, as you would any other [Service](services.md). Each `PamMe
 Capture the prompt's ID in the input handler. This prevents a delayed submission from answering a later prompt or another attempt:
 
 ```rust,ignore
-use amane::{Pam, PamMessageKind, Service, TextInput};
+use gnudi::{Pam, PamMessageKind, Service, TextInput};
 
 let pam = Pam::read();
 if let Some(prompt) = pam.prompt() {

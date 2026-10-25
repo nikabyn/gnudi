@@ -1,9 +1,8 @@
 use std::process;
 use std::time::Duration;
 
-use amane::{
-    App, Color, Column, Key, Keyboard, LayerWindow, Rectangle, Service, Text, TextInput, Widget,
-};
+use color::AlphaColor;
+use gnudi::{App, Column, Key, Keyboard, LayerWindow, Rectangle, Service, Text, TextInput, Widget};
 
 // type to filter, up and down pick, enter prints the pick, escape quits
 const FRUITS: [&str; 6] = ["apple", "banana", "cherry", "grape", "lemon", "mango"];
@@ -67,15 +66,15 @@ fn view() -> LayerWindow {
         Rectangle::new()
             .width(300.0)
             .height(36.0)
-            .fill(Color::WHITE)
+            .fill(AlphaColor::WHITE)
             .child(input),
     ));
 
     for (index, fruit) in matches(&search.query).into_iter().enumerate() {
         let fill = if index == search.selected {
-            Color::from("#cba6f7")
+            AlphaColor::from_hex("#cba6f7")
         } else {
-            Color::from("#1e1e2e")
+            AlphaColor::from_hex("#1e1e2e")
         };
 
         rows.push(Box::new(
@@ -83,7 +82,7 @@ fn view() -> LayerWindow {
                 .width(300.0)
                 .height(30.0)
                 .fill(fill)
-                .child(Text::new(fruit).size(16.0).color(Color::WHITE)),
+                .child(Text::new(fruit).size(16.0).color(AlphaColor::WHITE)),
         ));
     }
 

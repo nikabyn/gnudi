@@ -27,7 +27,7 @@ Only one Amane shell can run at a time. If your shell is already running from `a
 Open `~/.config/amane/src/main.rs`:
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
 
 fn main() {
     App::new().window(view).run();
@@ -43,15 +43,15 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new("hello from amane").size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new("hello from amane").size(20.0).color(AlphaColor::WHITE)),
         )
 }
 ```
 
 Top to bottom:
 
-- `use amane::{...}` brings in every name the file uses.
+- `use gnudi::{...}` brings in every name the file uses.
 - `main` builds an `App`, gives it one window, and runs it. `run()` never returns while the shell is open.
 - `.window(view)` passes the function `view` itself, without calling it. Amane calls it whenever the window needs to be drawn.
 - `view` describes the window:
@@ -67,7 +67,7 @@ Top to bottom:
 With `amane dev` still running, change the color and the text:
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
 
 fn main() {
     App::new().window(view).run();

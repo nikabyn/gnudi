@@ -1,5 +1,5 @@
 use vello::wgpu::{
-    Color, LoadOp, Operations, RenderPassColorAttachment, RenderPassDescriptor, StoreOp, Texture,
+    LoadOp, Operations, RenderPassColorAttachment, RenderPassDescriptor, StoreOp, Texture,
     TextureUsages,
 };
 
@@ -51,7 +51,7 @@ impl Gpu {
             depth_slice: None,
             resolve_target: None,
             ops: Operations {
-                load: LoadOp::Clear(Color::TRANSPARENT),
+                load: LoadOp::Clear(wgpu::Color::TRANSPARENT),
                 store: StoreOp::Store,
             },
         };

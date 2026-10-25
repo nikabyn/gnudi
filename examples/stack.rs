@@ -1,4 +1,5 @@
-use amane::{App, Center, Color, Full, LayerWindow, Rectangle, Stack, Text, children};
+use color::AlphaColor;
+use gnudi::{App, Center, Full, LayerWindow, Rectangle, Stack, Text, children};
 
 // a card with a badge laid over its corner
 fn main() {
@@ -12,7 +13,7 @@ fn view() -> LayerWindow {
         .radius(16.0)
         .fill("#1e1e2e")
         .align_child(Center, Center)
-        .child(Text::new("inbox").size(20.0).color(Color::WHITE));
+        .child(Text::new("inbox").size(20.0).color(AlphaColor::WHITE));
 
     // translate moves the badge from the stack's top-left corner to the card's top-right
     let badge = Rectangle::new()
@@ -22,7 +23,7 @@ fn view() -> LayerWindow {
         .fill("#f38ba8")
         .translate(186.0, -14.0)
         .align_child(Center, Center)
-        .child(Text::new("3").size(14.0).color(Color::BLACK));
+        .child(Text::new("3").size(14.0).color(AlphaColor::BLACK));
 
     LayerWindow::new().width(260.0).height(180.0).child(
         Rectangle::new()

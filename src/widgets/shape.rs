@@ -31,16 +31,16 @@ pub trait Shape {
 
     fn style_mut(&mut self) -> &mut Style;
 
-    fn fill(mut self, color: impl Into<AlphaColor<Srgb>>) -> Self
+    fn fill(mut self, color: AlphaColor<Srgb>) -> Self
     where
         Self: Sized,
     {
-        self.style_mut().fill = color.into();
+        self.style_mut().fill = color;
 
         self
     }
 
-    fn stroke(mut self, thickness: f32, color: impl Into<AlphaColor<Srgb>>) -> Self
+    fn stroke(mut self, thickness: f32, color: AlphaColor<Srgb>) -> Self
     where
         Self: Sized,
     {

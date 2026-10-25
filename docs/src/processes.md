@@ -4,19 +4,19 @@ This page covers running other programs and watching files: the glue for anythin
 
 | Function | Does | Waits? |
 |---|---|---|
-| `amane::spawn(command)` | starts a command and moves on | no |
-| `amane::output(command)` | runs a command and returns what it printed | yes, until it exits |
-| `amane::lines(command)` | runs a long-running command and gives each line it prints | yes, for each line |
-| `amane::watch_file(path)` | gives one item every time a file changes | yes, for each change |
+| `gnudi::spawn(command)` | starts a command and moves on | no |
+| `gnudi::output(command)` | runs a command and returns what it printed | yes, until it exits |
+| `gnudi::lines(command)` | runs a long-running command and gives each line it prints | yes, for each line |
+| `gnudi::watch_file(path)` | gives one item every time a file changes | yes, for each change |
 
 All commands run through `sh -c`, so pipes, globs, `~`, and `&&` work like in a terminal.
 
 ## Starting programs
 
 ```rust,ignore
-.on_click(|_| amane::spawn("firefox"))
-.on_click(|_| amane::spawn("niri msg action focus-workspace-down"))
-.on_click(|_| amane::spawn("notify-send amane 'the bar was clicked'"))
+.on_click(|_| gnudi::spawn("firefox"))
+.on_click(|_| gnudi::spawn("niri msg action focus-workspace-down"))
+.on_click(|_| gnudi::spawn("notify-send amane 'the bar was clicked'"))
 ```
 
 `spawn` returns right away, so it's safe in input handlers.
@@ -28,7 +28,7 @@ All commands run through `sh -c`, so pipes, globs, `~`, and `&&` work like in a 
 ```rust
 use std::time::Duration;
 
-use amane::{App, Full, LayerWindow, Service, Text};
+use gnudi::{App, Full, LayerWindow, Service, Text};
 
 struct Kernel {
     version: String,
@@ -36,7 +36,7 @@ struct Kernel {
 
 impl Service for Kernel {
     fn new() -> Self {
-        Self { version: amane::output("uname -r") }
+        Self { version: gnudi::output("uname -r") }
     }
 
     // never changes while the shell runs
@@ -63,7 +63,7 @@ fn view() -> LayerWindow {
 Some commands print a line every time something happens: `niri msg event-stream`, `pactl subscribe`, `udevadm monitor`. `lines` gives each line as it comes, in a Service's `listen`:
 
 ```rust
-use amane::{App, Full, LayerWindow, Service, Text};
+use gnudi::{App, Full, LayerWindow, Service, Text};
 
 struct Events {
     last: String,
@@ -75,7 +75,7 @@ impl Service for Events {
     }
 
     fn listen() {
-        for line in amane::lines("niri msg event-stream") {
+        for line in gnudi::lines("niri msg event-stream") {
             Self::write().last = line;
         }
     }
@@ -99,7 +99,7 @@ The loop ends when the command exits. If the loop stops early, for example becau
 ```rust
 use std::fs;
 
-use amane::{App, Full, LayerWindow, Service, Text};
+use gnudi::{App, Full, LayerWindow, Service, Text};
 
 const NOTE: &str = "/tmp/amane-note";
 
@@ -113,7 +113,7 @@ impl Service for Note {
     }
 
     fn listen() {
-        for _ in amane::watch_file(NOTE) {
+        for _ in gnudi::watch_file(NOTE) {
             Self::write().text = read_note();
         }
     }

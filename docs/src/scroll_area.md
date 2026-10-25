@@ -5,7 +5,7 @@
 ## A scrolling list
 
 ```rust
-use amane::{App, Column, LayerWindow, Rectangle, ScrollArea, Text, Widget};
+use gnudi::{App, Column, LayerWindow, Rectangle, ScrollArea, Text, Widget};
 
 fn main() {
     App::new().window(view).run();
@@ -55,7 +55,7 @@ Rectangle::new()
     .width(300.0)
     .height(400.0)
     .radius(24.0)
-    .fill(Color::WHITE)
+    .fill(AlphaColor::WHITE)
     .clip()
     .child(ScrollArea::new("items", Column::new(rows)))
 ```

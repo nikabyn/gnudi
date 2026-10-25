@@ -7,7 +7,7 @@ A shell is rarely one window. This page covers several layer windows, one window
 Call `.window` once for each window:
 
 ```rust
-use amane::{App, Full, Horizontal, LayerWindow, Parent, Rectangle, Vertical};
+use gnudi::{App, Full, Horizontal, LayerWindow, Parent, Rectangle, Vertical};
 
 fn main() {
     App::new().window(bar).window(corner).run();
@@ -38,7 +38,7 @@ Each window has its own view, and each one only redraws for the Services its own
 A bar should be on every monitor, including ones you plug in later:
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Monitor, Parent, Rectangle, Text, Vertical};
+use gnudi::{App, Full, Layer, LayerWindow, Monitor, Parent, Rectangle, Text, Vertical};
 
 fn main() {
     App::new().window_per_monitor(bar).run();
@@ -56,8 +56,8 @@ fn bar(monitor: &Monitor) -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new(label).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new(label).color(AlphaColor::WHITE)),
         )
 }
 ```
@@ -77,7 +77,7 @@ if monitor.name == "eDP-1" {
 A normal window is a regular app window, with a title bar, that the compositor places and tiles like any other app. Use one for a settings panel, or anything you'd want to move around:
 
 ```rust
-use amane::{App, Center, Color, Parent, Rectangle, Text, Window};
+use gnudi::{App, Center, Parent, Rectangle, Text, Window};
 
 fn main() {
     App::new().normal_window("settings", settings).run();
@@ -94,7 +94,7 @@ fn settings() -> Window {
                 .height(Parent)
                 .fill("#313244")
                 .align_child(Center, Center)
-                .child(Text::new("settings go here").color(Color::WHITE)),
+                .child(Text::new("settings go here").color(AlphaColor::WHITE)),
         )
 }
 ```
@@ -111,7 +111,7 @@ The name, `"settings"` here, tells windows apart. It's used to close the window 
 Windows given to `App` open when the shell starts. To open one later, for example from a button, call `open_window` with a name and a view:
 
 ```rust
-use amane::{App, Full, LayerWindow, Parent, Pointer, Rectangle, Window, close_window, open_window};
+use gnudi::{App, Full, LayerWindow, Parent, Pointer, Rectangle, Window, close_window, open_window};
 
 fn main() {
     App::new().window(bar).run();

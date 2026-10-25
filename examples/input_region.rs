@@ -1,4 +1,4 @@
-use amane::{App, Color, InputArea, LayerWindow, Parent, Rectangle, Row, children};
+use gnudi::{App, InputArea, LayerWindow, Parent, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).window(overlay).run();
@@ -20,11 +20,11 @@ fn view() -> LayerWindow {
                 Rectangle::new()
                     .width(100.0)
                     .height(Parent)
-                    .fill(Color::RED),
+                    .fill(color::palette::css::RED),
                 Rectangle::new()
                     .width(Parent)
                     .height(Parent)
-                    .fill(Color::BLUE),
+                    .fill(color::palette::css::BLUE),
             ])
             .width(Parent)
             .height(Parent),
@@ -41,6 +41,6 @@ fn overlay() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::GREEN),
+                .fill(color::palette::css::GREEN),
         )
 }

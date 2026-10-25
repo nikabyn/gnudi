@@ -1,6 +1,7 @@
-use amane::{
-    App, Audio, Button, Color, Full, Layer, LayerWindow, Parent, Rectangle, Row, Scroll, Service,
-    Text, Vertical, children,
+use color::AlphaColor;
+use gnudi::{
+    App, Audio, Button, Full, Layer, LayerWindow, Parent, Rectangle, Row, Scroll, Service, Text,
+    Vertical, children,
 };
 
 // scroll over the bar to change the volume, click to mute
@@ -26,10 +27,10 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLACK)
+                .fill(AlphaColor::BLACK)
                 .on_click(clicked)
                 .on_scroll(scrolled)
-                .child(Text::new(label).size(20.0).color(Color::WHITE)),
+                .child(Text::new(label).size(20.0).color(AlphaColor::WHITE)),
         ]))
 }
 

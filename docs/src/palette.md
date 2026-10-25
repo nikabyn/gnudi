@@ -5,7 +5,7 @@
 ## A themed bar
 
 ```rust
-use amane::{App, Full, LayerWindow, Palette, Parent, Rectangle, Service, Text};
+use gnudi::{App, Full, LayerWindow, Palette, Parent, Rectangle, Service, Text};
 
 fn main() {
     Palette::write().open("/home/you/Pictures/wall.jpg", 16);

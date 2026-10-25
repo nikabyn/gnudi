@@ -1,6 +1,7 @@
-use amane::{
-    Action, App, Center, Color, Column, Horizontal, Layer, LayerWindow, Notification,
-    Notifications, Parent, Rectangle, Row, Service, Text, Urgency, Vertical, Widget,
+use color::{AlphaColor, Srgb};
+use gnudi::{
+    Action, App, Center, Column, Horizontal, Layer, LayerWindow, Notification, Notifications,
+    Parent, Rectangle, Row, Service, Text, Urgency, Vertical, Widget,
 };
 
 /*
@@ -20,7 +21,7 @@ fn view() -> LayerWindow {
     if !notifications.running() {
         cards.push(card(
             "another notification daemon is running",
-            Color::RED,
+            color::palette::css::RED,
             None,
         ));
     }
@@ -48,8 +49,8 @@ fn notification_card(notification: &Notification) -> Box<dyn Widget> {
     );
 
     let fill = match notification.urgency() {
-        Urgency::Critical => Color::RED,
-        _ => Color::BLUE,
+        Urgency::Critical => color::palette::css::RED,
+        _ => color::palette::css::BLUE,
     };
 
     let body = card(&label, fill, Some(notification.id()));
@@ -77,19 +78,23 @@ fn action_button(id: u32, action: &Action) -> Box<dyn Widget> {
         Rectangle::new()
             .width(100.0)
             .height(30.0)
-            .fill(Color::GREEN)
+            .fill(color::palette::css::GREEN)
             .align_child(Center, Center)
             .on_click(move |_| Notifications::invoke(id, &key))
-            .child(Text::new(action.label()).size(16.0).color(Color::WHITE)),
+            .child(
+                Text::new(action.label())
+                    .size(16.0)
+                    .color(AlphaColor::WHITE),
+            ),
     )
 }
 
-fn card(label: &str, fill: Color, id: Option<u32>) -> Box<dyn Widget> {
+fn card(label: &str, fill: AlphaColor<Srgb>, id: Option<u32>) -> Box<dyn Widget> {
     let mut rectangle = Rectangle::new()
         .width(Parent)
         .height(60.0)
         .fill(fill)
-        .child(Text::new(label).size(16.0).color(Color::WHITE));
+        .child(Text::new(label).size(16.0).color(AlphaColor::WHITE));
 
     if let Some(id) = id {
         rectangle = rectangle.on_click(move |_| Notifications::click(id));

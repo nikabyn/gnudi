@@ -5,7 +5,7 @@ Every builder method and function on one page. Each row links to the page that e
 All names come from `amane`. To bring in everything at once:
 
 ```rust
-use amane::*;
+use gnudi::*;
 # fn main() {}
 ```
 
@@ -140,7 +140,7 @@ use amane::*;
 |---|---|
 | `Text::new("hello")` | takes `&str`, `String`, or `format!(...)` |
 | `.size(20.0)` | 16 by default |
-| `.color(Color::WHITE)` | takes a `Color`. Wrap hex in `Color::from("#...")`. |
+| `.color(AlphaColor::WHITE)` | takes a `Color`. Wrap hex in `Color::from("#...")`. |
 | `.font("JetBrains Mono")` | a font family |
 | `.weight(Weight::Bold)` | or a number like `300` |
 | `.elide()` | one line, cut off with "…" |
@@ -213,7 +213,7 @@ use amane::*;
 | `.easing(Easing::InOut)` | `Out` (default), `InOut`, `Linear` |
 | `animation.to(target)` | starts moving from wherever it is now |
 | `animation.value()` | the current value. Keeps frames coming while it moves. |
-| `amane::request_frame()` | asks for one more frame |
+| `gnudi::request_frame()` | asks for one more frame |
 
 ## Services
 
@@ -255,10 +255,10 @@ use amane::*;
 
 | Code | Does |
 |---|---|
-| `amane::spawn("cmd")` | starts a command, doesn't wait |
-| `amane::output("cmd")` | runs a command and returns its output. Waits. |
-| `amane::lines("cmd")` | each line a long-running command prints |
-| `amane::watch_file(path)` | one item per change to a file |
+| `gnudi::spawn("cmd")` | starts a command, doesn't wait |
+| `gnudi::output("cmd")` | runs a command and returns its output. Waits. |
+| `gnudi::lines("cmd")` | each line a long-running command prints |
+| `gnudi::watch_file(path)` | one item per change to a file |
 | `Bus::system()`, `Bus::session()` | a D-Bus connection |
 | `bus.property(dest, path, iface, name)` | reads a property |
 | `bus.call(dest, path, iface, method, &arguments![...])` | calls a method |

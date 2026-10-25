@@ -5,7 +5,7 @@
 ## A text field
 
 ```rust
-use amane::{App, Keyboard, LayerWindow, Rectangle, TextInput};
+use gnudi::{App, Keyboard, LayerWindow, Rectangle, TextInput};
 
 fn main() {
     App::new().window(view).run();
@@ -44,7 +44,7 @@ Click the box, type, and press Enter.
 ```rust,ignore
 TextInput::new("search")
     .size(18.0)                       // text size, 16 by default
-    .color(Color::WHITE)              // text color, black by default
+    .color(AlphaColor::WHITE)              // text color, black by default
     .width(240.0)                     // Parent by default
     .placeholder("search apps")       // shown while it's empty
     .password()                       // shows dots instead of the text
@@ -64,7 +64,7 @@ The input owns its text. To use the text anywhere else, copy it into a Service i
 ```rust
 use std::time::Duration;
 
-use amane::{App, Column, Keyboard, LayerWindow, Service, Text, TextInput, children};
+use gnudi::{App, Column, Keyboard, LayerWindow, Service, Text, TextInput, children};
 
 struct Search {
     query: String,

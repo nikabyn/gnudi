@@ -1,4 +1,4 @@
-use amane::{App, Column, LayerWindow, Text, Weight, children};
+use gnudi::{App, Column, LayerWindow, Text, Weight, children};
 
 fn main() {
     App::new().window(view).run();

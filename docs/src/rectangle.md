@@ -5,7 +5,7 @@
 ## A rounded rectangle
 
 ```rust
-use amane::{App, LayerWindow, Rectangle};
+use gnudi::{App, LayerWindow, Rectangle};
 
 fn main() {
     App::new().window(view).run();
@@ -28,7 +28,7 @@ fn view() -> LayerWindow {
 | Fill | Example |
 |---|---|
 | a hex string | `.fill("#1e1e2e")`, also `"#rgb"` and `"#rrggbbaa"` |
-| a `Color` | `.fill(Color::BLUE)`, `.fill(Color::rgb(30, 30, 46))`, `.fill(Color::rgba(0, 0, 0, 128))` |
+| a `Color` | `.fill(color::palette::css::BLUE)`, `.fill(Color::rgb(30, 30, 46))`, `.fill(Color::rgba(0, 0, 0, 128))` |
 | a `Gradient` | `.fill(Gradient::linear(90.0, [(0.0, "#89b4fa"), (1.0, "#f5c2e7")]))` |
 | an `Image` | `.fill(Image::cover("/path/to/wallpaper.png"))`, see [Images](images.md) |
 | `Mask` | `.fill(Mask)`, a hole, see [Masks](#masks) |
@@ -81,7 +81,7 @@ Each stop is a position from 0 to 1 and a color. A linear gradient also takes an
 A rectangle filled with `Mask` paints nothing. Instead, it cuts its shape out of the nearest rectangle around it:
 
 ```rust
-use amane::{App, Center, Full, LayerWindow, Mask, Parent, Rectangle};
+use gnudi::{App, Center, Full, LayerWindow, Mask, Parent, Rectangle};
 
 fn main() {
     App::new().window(view).run();
@@ -143,7 +143,7 @@ The child moves with its rectangle.
 Putting it together:
 
 ```rust
-use amane::{App, Center, Color, LayerWindow, Pointer, Rectangle, Shadow, Text};
+use gnudi::{App, Center, LayerWindow, Pointer, Rectangle, Shadow, Text};
 
 fn main() {
     App::new().window(view).run();

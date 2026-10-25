@@ -7,8 +7,8 @@ Your compositor must support the **ext-session-lock** protocol. niri, Hyprland, 
 ## A lock screen
 
 ```rust
-use amane::{
-    App, Center, Color, Column, LayerWindow, Lock, Monitor, Parent, Rectangle, Service, Text,
+use gnudi::{
+    App, Center, Column, LayerWindow, Lock, Monitor, Parent, Rectangle, Service, Text,
     TextInput, children,
 };
 
@@ -36,11 +36,11 @@ fn view(_: &Monitor) -> LayerWindow {
             .align_child(Center, Center)
             .child(
                 Column::new(children![
-                    Text::new(status).size(24.0).color(Color::WHITE),
+                    Text::new(status).size(24.0).color(AlphaColor::WHITE),
                     Rectangle::new()
                         .width(300.0)
                         .height(40.0)
-                        .fill(Color::WHITE)
+                        .fill(AlphaColor::WHITE)
                         .padding(8.0)
                         .child(
                             TextInput::new("password")

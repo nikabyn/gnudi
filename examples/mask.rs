@@ -1,4 +1,5 @@
-use amane::{App, Column, LayerWindow, Mask, Parent, Rectangle, Row, children};
+use color::AlphaColor;
+use gnudi::{App, Column, LayerWindow, Mask, Parent, Rectangle, Row, children};
 
 fn main() {
     App::new().window(view).run();
@@ -28,7 +29,7 @@ fn view() -> LayerWindow {
                         .height(80.0)
                         .radius(16.0)
                         .fill(Mask)
-                        .border(2.0, "#cdd6f4"),
+                        .border(2.0, AlphaColor::from_hex("#cdd6f4")),
                     Rectangle::new().width(40.0).height(80.0),
                     // only cuts the card holding it, so the dark background shows in the hole
                     Rectangle::new()

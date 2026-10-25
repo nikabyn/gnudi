@@ -1,8 +1,8 @@
 use std::time::Duration;
 
-use amane::{
-    App, Button, Color, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle, Service, Text,
-    Vertical,
+use color::AlphaColor;
+use gnudi::{
+    App, Button, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle, Service, Text, Vertical,
 };
 
 struct Panel {
@@ -52,9 +52,13 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
+                .fill(color::palette::css::BLUE)
                 .on_click(panel_clicked)
-                .child(Text::new("click to resize").size(20.0).color(Color::WHITE)),
+                .child(
+                    Text::new("click to resize")
+                        .size(20.0)
+                        .color(AlphaColor::WHITE),
+                ),
         )
 }
 

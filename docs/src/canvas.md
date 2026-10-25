@@ -7,7 +7,7 @@
 A progress ring at 70%:
 
 ```rust
-use amane::{App, Arc, Canvas, Cap, LayerWindow, Shape, shapes};
+use gnudi::{App, Arc, Canvas, Cap, LayerWindow, Shape, shapes};
 
 fn main() {
     App::new().window(view).run();
@@ -73,7 +73,7 @@ Path::new()
 Paths are good for graphs. Build them in a loop:
 
 ```rust
-use amane::{App, Canvas, Cap, LayerWindow, Path, Shape, shapes};
+use gnudi::{App, Canvas, Cap, LayerWindow, Path, Shape, shapes};
 
 fn main() {
     App::new().window(view).run();
@@ -111,7 +111,7 @@ fn graph(history: &[f32]) -> Canvas {
 Half a circle, with a needle:
 
 ```rust
-use amane::{App, Arc, Canvas, Cap, Circle, LayerWindow, Line, Shape, shapes};
+use gnudi::{App, Arc, Canvas, Cap, Circle, LayerWindow, Line, Shape, shapes};
 
 fn main() {
     App::new().window(view).run();

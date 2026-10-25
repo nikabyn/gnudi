@@ -18,7 +18,7 @@ fn main(@location(0) uv: vec2<f32>) -> @location(0) vec4<f32> {
 `main.rs`:
 
 ```rust
-use amane::{App, LayerWindow, Rectangle};
+use gnudi::{App, LayerWindow, Rectangle};
 
 fn main() {
     App::new().window(view).run();

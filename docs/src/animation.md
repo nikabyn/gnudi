@@ -9,7 +9,7 @@ This page covers smooth motion: sliding panels, fading popups, and colors that b
 ```rust
 use std::time::Duration;
 
-use amane::{Animation, App, Button, LayerWindow, Parent, Rectangle, Service};
+use gnudi::{Animation, App, Button, LayerWindow, Parent, Rectangle, Service};
 
 struct Panel {
     height: Animation,
@@ -115,7 +115,7 @@ Anything the view returns can come from an animation, including the window's own
 ```rust
 use std::time::Duration;
 
-use amane::{
+use gnudi::{
     Animation, App, Horizontal, Layer, LayerWindow, Margin, Parent, Rectangle, Service, Vertical,
 };
 
@@ -176,7 +176,7 @@ Some motion never arrives, like a spinner or a pulsing dot. For that, compute th
 use std::sync::LazyLock;
 use std::time::Instant;
 
-use amane::{App, Full, LayerWindow, Rectangle};
+use gnudi::{App, Full, LayerWindow, Rectangle};
 
 static START: LazyLock<Instant> = LazyLock::new(Instant::now);
 
@@ -190,7 +190,7 @@ fn view() -> LayerWindow {
     let x = 170.0 + (seconds * 3.0).sin() * 150.0;
 
     // it never arrives, so it always wants the next frame
-    amane::request_frame();
+    gnudi::request_frame();
 
     LayerWindow::new().width(400.0).height(60.0).child(
         Rectangle::new()

@@ -138,7 +138,7 @@ mod tests {
     };
 
     use crate::graphics::gpu::wait::wait;
-    use crate::graphics::{Area, Color, Corners};
+    use crate::graphics::{Area, Corners};
 
     use super::super::Clips;
     use super::*;
@@ -160,7 +160,7 @@ mod tests {
         quads.rectangle(
             Area::new(0.0, 0.0, 16.0, 16.0),
             Corners::default(),
-            Color::BLUE,
+            color::palette::css::BLUE,
             Clips::default(),
         );
         quads.draw(&device, &mut encoder, &canvas);
@@ -187,7 +187,7 @@ mod tests {
         quads.rectangle(
             Area::new(0.0, 12.0, 16.0, 4.0),
             Corners::default(),
-            Color::RED,
+            color::palette::css::RED,
             Clips::default(),
         );
         quads.draw(&device, &mut encoder, &canvas);

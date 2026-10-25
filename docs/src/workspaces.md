@@ -9,7 +9,7 @@ On Mango, each tag is a workspace. Several tags can be active on one monitor at 
 ## Workspace buttons
 
 ```rust
-use amane::{App, Color, Full, LayerWindow, Parent, Rectangle, Row, Service, Text, Widget, Workspace, Workspaces};
+use gnudi::{App, Full, LayerWindow, Parent, Rectangle, Row, Service, Text, Widget, Workspace, Workspaces};
 
 fn main() {
     App::new().window(view).run();
@@ -43,7 +43,7 @@ fn button(workspace: &Workspace) -> Rectangle {
         .height(Parent)
         .fill(fill)
         .on_click(move |_| Workspaces::focus(id))
-        .child(Text::new(workspace.index().to_string()).color(Color::WHITE))
+        .child(Text::new(workspace.index().to_string()).color(AlphaColor::WHITE))
 }
 ```
 

@@ -33,7 +33,7 @@
 ## The shell freezes
 
 - **A view calls `write()`.** A view may still hold a `read()` of the same Service, and the write waits for it forever. Only read in views ([State and Services](services.md)).
-- **A view waits on something.** `amane::output`, file reads, D-Bus calls, and `sleep` all block the thread that draws every window. Move them into a Service.
+- **A view waits on something.** `gnudi::output`, file reads, D-Bus calls, and `sleep` all block the thread that draws every window. Move them into a Service.
 
 ## The shell uses too much CPU
 

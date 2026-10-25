@@ -1,6 +1,6 @@
-use amane::{
-    App, Battery, Color, Cpu, Full, Layer, LayerWindow, Memory, Parent, Rectangle, Service, Text,
-    Vertical,
+use color::AlphaColor;
+use gnudi::{
+    App, Battery, Cpu, Full, Layer, LayerWindow, Memory, Parent, Rectangle, Service, Text, Vertical,
 };
 
 fn main() {
@@ -35,7 +35,7 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLACK)
-                .child(Text::new(&label).size(16.0).color(Color::WHITE)),
+                .fill(AlphaColor::BLACK)
+                .child(Text::new(&label).size(16.0).color(AlphaColor::WHITE)),
         )
 }

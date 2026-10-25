@@ -1,6 +1,7 @@
-use amane::{
-    App, Color, Column, Full, Layer, LayerWindow, Media, MediaPlayer, Parent, Rectangle, Row,
-    Service, Text, Vertical, Widget, children,
+use color::AlphaColor;
+use gnudi::{
+    App, Column, Full, Layer, LayerWindow, Media, MediaPlayer, Parent, Rectangle, Row, Service,
+    Text, Vertical, Widget, children,
 };
 
 const ROW_HEIGHT: f32 = 30.0;
@@ -33,7 +34,11 @@ fn view() -> LayerWindow {
 
 // the active player, the one Media::play_pause() controls, is the lighter row
 fn player_row(player: &MediaPlayer, active: bool) -> Row {
-    let fill = if active { Color::BLUE } else { Color::BLACK };
+    let fill = if active {
+        color::palette::css::BLUE
+    } else {
+        AlphaColor::BLACK
+    };
 
     let symbol = if player.playing() { "pause" } else { "play" };
 
@@ -57,7 +62,7 @@ fn player_row(player: &MediaPlayer, active: bool) -> Row {
             .width(Parent)
             .height(ROW_HEIGHT)
             .fill(fill)
-            .child(Text::new(label).size(18.0).color(Color::WHITE)),
+            .child(Text::new(label).size(18.0).color(AlphaColor::WHITE)),
     ])
 }
 
@@ -65,6 +70,6 @@ fn button(label: &str) -> Rectangle {
     Rectangle::new()
         .width(80.0)
         .height(ROW_HEIGHT)
-        .fill(Color::BLUE)
-        .child(Text::new(label).size(18.0).color(Color::WHITE))
+        .fill(color::palette::css::BLUE)
+        .child(Text::new(label).size(18.0).color(AlphaColor::WHITE))
 }

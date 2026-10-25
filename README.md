@@ -147,7 +147,7 @@ amane clean --yes
 This is the starter config that `amane new` creates. It puts a 30 pixel blue bar at the top of the screen with some text in it.
 
 ```rust
-use amane::{App, Color, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
+use gnudi::{App, Full, Layer, LayerWindow, Parent, Rectangle, Text, Vertical};
 
 fn main() {
     App::new().window(view).run();
@@ -163,8 +163,8 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLUE)
-                .child(Text::new("hello world").size(20.0).color(Color::WHITE)),
+                .fill(color::palette::css::BLUE)
+                .child(Text::new("hello world").size(20.0).color(AlphaColor::WHITE)),
         )
 }
 ```

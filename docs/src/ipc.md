@@ -7,7 +7,7 @@ IPC lets other programs talk to your running shell. Its main use is keybinds: yo
 ```rust
 use std::time::Duration;
 
-use amane::{App, LayerWindow, Parent, Rectangle, Service};
+use gnudi::{App, LayerWindow, Parent, Rectangle, Service};
 
 struct Launcher {
     open: bool,
@@ -66,7 +66,7 @@ It prints `opened`, and the launcher appears. Run it again to close it.
 - The handler gets the arguments and returns a `String`. Whatever it returns is printed by `amane ipc call`.
 - The handler writes to a Service, so every window that reads it redraws ([State and Services](services.md)).
 
-The handler runs on the same thread that draws, so keep it quick. For slow work, start a thread or use `amane::spawn`.
+The handler runs on the same thread that draws, so keep it quick. For slow work, start a thread or use `gnudi::spawn`.
 
 ## Passing arguments
 

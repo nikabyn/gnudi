@@ -1,8 +1,9 @@
 use std::env;
 
-use amane::{
-    App, Color, Column, Pam, PamConfig, PamError, PamMessageKind, PamResult, Parent, Rectangle,
-    Service, Text, TextInput, Widget, Window,
+use color::AlphaColor;
+use gnudi::{
+    App, Column, Pam, PamConfig, PamError, PamMessageKind, PamResult, Parent, Rectangle, Service,
+    Text, TextInput, Widget, Window,
 };
 
 // A normal window: authenticating here never locks or unlocks the session.
@@ -33,16 +34,17 @@ fn view() -> Window {
         None if pam.active() => String::from("authenticating..."),
         None => String::from("authentication not started"),
     };
-    let mut content: Vec<Box<dyn Widget>> =
-        vec![Box::new(Text::new(status).size(24.0).color(Color::WHITE))];
+    let mut content: Vec<Box<dyn Widget>> = vec![Box::new(
+        Text::new(status).size(24.0).color(AlphaColor::WHITE),
+    )];
     for message in pam.messages() {
         if matches!(message.kind(), PamMessageKind::Info | PamMessageKind::Error) {
-            content.push(Box::new(Text::new(message.text()).color(Color::WHITE)));
+            content.push(Box::new(Text::new(message.text()).color(AlphaColor::WHITE)));
         }
     }
     if let Some(prompt) = pam.prompt() {
         let id = prompt.id();
-        content.push(Box::new(Text::new(prompt.text()).color(Color::WHITE)));
+        content.push(Box::new(Text::new(prompt.text()).color(AlphaColor::WHITE)));
         let mut input = TextInput::new("pam-response")
             .focused()
             .on_submit(move |response| {
@@ -57,7 +59,7 @@ fn view() -> Window {
             Rectangle::new()
                 .width(300.0)
                 .height(40.0)
-                .fill(Color::WHITE)
+                .fill(AlphaColor::WHITE)
                 .padding(8.0)
                 .child(input),
         ));

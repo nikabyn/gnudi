@@ -13,7 +13,7 @@ The catch is that you now have two copies of the truth: what the backend knows, 
 Amane's widgets don't remember *anything*. A view is a plain function that builds the whole window from scratch:
 
 ```rust
-use amane::{Battery, Full, LayerWindow, Service, Text};
+use gnudi::{Battery, Full, LayerWindow, Service, Text};
 
 fn view() -> LayerWindow {
     let battery = Battery::read();
@@ -188,7 +188,7 @@ src/
 │   └── wake.rs        the wake ping source
 ├── widgets.rs         the Widget trait
 ├── widgets/           Rectangle, Text, TextInput, Row, Column, Stack, ScrollArea, Canvas, shapes
-├── graphics.rs        Color, Area, Transform, Gradient, BezierPath
+├── graphics.rs        Area, Transform, Gradient, BezierPath
 ├── graphics/
 │   ├── renderer.rs    Renderer and Command
 │   ├── gpu.rs         Gpu and everything under gpu/

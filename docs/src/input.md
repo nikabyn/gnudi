@@ -7,7 +7,7 @@ This page covers mouse and keyboard input: clicks, hover, scrolling, dragging, t
 ## Handling a click
 
 ```rust
-use amane::{App, Button, LayerWindow, Parent, Rectangle, Text};
+use gnudi::{App, Button, LayerWindow, Parent, Rectangle, Text};
 
 fn main() {
     App::new().window(view).run();
@@ -64,7 +64,7 @@ A `Scroll` is measured in lines, so a mouse wheel and a touchpad move things by 
 A handler can be a function, like `clicked` above, or a closure. A closure can carry values from the view into the handler:
 
 ```rust
-use amane::{App, Column, LayerWindow, Parent, Rectangle, Text, Widget};
+use gnudi::{App, Column, LayerWindow, Parent, Rectangle, Text, Widget};
 
 fn main() {
     App::new().window(view).run();
@@ -108,7 +108,7 @@ A hover effect needs state, because the view has to know whether the pointer is 
 ```rust
 use std::time::Duration;
 
-use amane::{App, Color, LayerWindow, Parent, Rectangle, Service};
+use gnudi::{App, LayerWindow, Parent, Rectangle, Service};
 
 struct Hover {
     inside: bool,
@@ -170,7 +170,7 @@ Keys go to a window, not a widget. First the window has to ask for keyboard focu
 ```rust
 use std::process;
 
-use amane::{App, Key, Keyboard, LayerWindow, Text};
+use gnudi::{App, Key, Keyboard, LayerWindow, Text};
 
 fn main() {
     App::new().window(view).run();

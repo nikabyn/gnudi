@@ -1,4 +1,5 @@
-use amane::{App, Color, Column, LayerWindow, Parent, Rectangle, ScrollArea, Text, Widget};
+use color::AlphaColor;
+use gnudi::{App, Column, LayerWindow, Parent, Rectangle, ScrollArea, Text, Widget};
 
 fn main() {
     App::new().window(view).run();
@@ -10,7 +11,7 @@ fn view() -> LayerWindow {
             .width(Parent)
             .height(Parent)
             .radius(24.0)
-            .fill(Color::WHITE)
+            .fill(AlphaColor::WHITE)
             .clip()
             .child(ScrollArea::new("items", Column::new(items()))),
     )
@@ -25,9 +26,9 @@ fn items() -> Vec<Box<dyn Widget>> {
 
         // every other row is shaded, so the movement is easy to see
         let shade = if number % 2 == 0 {
-            Color::WHITE
+            AlphaColor::WHITE
         } else {
-            Color::from("#e8e8e8")
+            AlphaColor::from_hex("#e8e8e8")
         };
 
         let item = Rectangle::new()

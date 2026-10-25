@@ -1,6 +1,7 @@
-use amane::{
-    App, Button, Color, Full, Layer, LayerWindow, Media, Parent, Rectangle, Row, Service, Text,
-    Vertical, children,
+use color::AlphaColor;
+use gnudi::{
+    App, Button, Full, Layer, LayerWindow, Media, Parent, Rectangle, Row, Service, Text, Vertical,
+    children,
 };
 
 // play something in a player like mpv or firefox while the bar is running
@@ -38,8 +39,8 @@ fn view() -> LayerWindow {
             Rectangle::new()
                 .width(Parent)
                 .height(Parent)
-                .fill(Color::BLACK)
-                .child(Text::new(label).size(20.0).color(Color::WHITE)),
+                .fill(AlphaColor::BLACK)
+                .child(Text::new(label).size(20.0).color(AlphaColor::WHITE)),
         ]))
 }
 
@@ -47,9 +48,9 @@ fn button(label: &str, clicked: fn(Button)) -> Rectangle {
     Rectangle::new()
         .width(80.0)
         .height(Parent)
-        .fill(Color::BLUE)
+        .fill(color::palette::css::BLUE)
         .on_click(clicked)
-        .child(Text::new(label).size(20.0).color(Color::WHITE))
+        .child(Text::new(label).size(20.0).color(AlphaColor::WHITE))
 }
 
 fn previous_clicked(_: Button) {

@@ -1,8 +1,9 @@
 use std::time::Duration;
 
-use amane::{
-    App, Button, Color, Full, Key, Keyboard, Layer, LayerWindow, Parent, Rectangle, Scroll,
-    Service, Text, Vertical,
+use color::AlphaColor;
+use gnudi::{
+    App, Button, Full, Key, Keyboard, Layer, LayerWindow, Parent, Rectangle, Scroll, Service, Text,
+    Vertical,
 };
 
 struct Counter {
@@ -32,9 +33,9 @@ fn view() -> LayerWindow {
     let counter = Counter::read();
 
     let fill = if counter.hovered {
-        Color::rgb(90, 111, 216)
+        AlphaColor::from_rgb8(90, 111, 216)
     } else {
-        Color::BLUE
+        color::palette::css::BLUE
     };
 
     LayerWindow::new()
@@ -55,7 +56,7 @@ fn view() -> LayerWindow {
                 .child(
                     Text::new(format!("count: {}", counter.count))
                         .size(20.0)
-                        .color(Color::WHITE),
+                        .color(AlphaColor::WHITE),
                 ),
         )
 }
