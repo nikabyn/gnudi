@@ -20,7 +20,7 @@ pub struct Frame {
     pub moving: bool,
 }
 
-/*
+/**
  * runs a window's view at the window's size; the services it read come
  * back with it, so a later change to one of them draws the window again
  */
@@ -48,7 +48,7 @@ pub fn run_view<T>(
     (content, reads)
 }
 
-// lays the root out in the window, draws it, and collects where it reacts to the pointer
+/// lays the root out in the window, draws it, and collects where it reacts to the pointer
 pub fn build(
     root: &dyn Widget,
     width: u32,

@@ -123,7 +123,7 @@ impl OpenWindow {
         surface.frame(&self.qh, FrameCallbackData(surface.clone()));
     }
 
-    /*
+    /**
      * false when the gpu skipped the frame, so nothing was committed; the window
      * is measured in logical pixels, the buffer in real ones, and the scale goes
      * out with the commit that presenting the frame makes

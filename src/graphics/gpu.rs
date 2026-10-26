@@ -55,7 +55,7 @@ impl Drop for Session {
     }
 }
 
-/*
+/**
  * the only part of amane that knows how drawing is done,
  * vello draws the shapes and wgpu runs everything else on the gpu
  */
@@ -66,36 +66,36 @@ pub struct Gpu {
     surface: Surface<'static>,
     config: SurfaceConfiguration,
 
-    // one renderer for every window, see shared.rs
+    /// one renderer for every window, see shared.rs
     vello: Rc<RefCell<vello::Renderer>>,
 
-    // images already turned into vello's form, keyed by where the loaded image lives
+    /// images already turned into vello's form, keyed by where the loaded image lives
     images: HashMap<usize, ImageData>,
 
-    // images this window keeps copies of, and the ones it drew this frame
+    /// images this window keeps copies of, and the ones it drew this frame
     shown: HashMap<usize, Arc<Bitmap>>,
     drawn: HashSet<usize>,
 
-    // letters already drawn into pictures, none for letters without pixels like a space
+    /// letters already drawn into pictures, none for letters without pixels like a space
     glyphs: HashMap<glyph::GlyphKey, Option<glyph::Glyph>>,
 
     quads: quads::Quads,
 
-    // the shared count of atlas drops, and the one this window last sent its images again after
+    /// the shared count of atlas drops, and the one this window last sent its images again after
     atlas_drops: Rc<Cell<u64>>,
     atlas_seen: u64,
 
-    // custom shaders, compiled once and kept by the path they were read from
+    /// custom shaders, compiled once and kept by the path they were read from
     shaders: HashMap<PathBuf, Shader>,
 
-    // finished window-sized textures waiting to be reused
+    /// finished window-sized textures waiting to be reused
     spare: Vec<Texture>,
 
-    // last frame's vello results in the order they were painted, and how far this frame got
+    /// last frame's vello results in the order they were painted, and how far this frame got
     painted: Vec<Option<painted::Painted>>,
     painting: usize,
 
-    // the frame's jobs not mailed yet; none between frames and right after mailing
+    /// the frame's jobs not mailed yet; none between frames and right after mailing
     pending: RefCell<Option<CommandEncoder>>,
 
     composite: Pass,
@@ -105,7 +105,7 @@ pub struct Gpu {
 }
 
 impl Gpu {
-    // the pointers are libwayland's display and surface, which have to outlive the gpu
+    /// the pointers are libwayland's display and surface, which have to outlive the gpu
     pub fn new(display: *mut c_void, surface: *mut c_void) -> Self {
         let instance = shared::instance(display);
 

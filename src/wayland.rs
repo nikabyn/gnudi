@@ -71,7 +71,7 @@ struct WaylandState {
     fractional_scale: Option<WpFractionalScaleManagerV1>,
     viewporter: Option<WpViewporter>,
 
-    /*
+    /**
      * the lock screen's view, what asks the compositor for a lock (kept, so
      * the session can be locked again), and the lock while the session is locked
      */
